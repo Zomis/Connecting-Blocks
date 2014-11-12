@@ -1,13 +1,12 @@
 package net.zomis.connblocks;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -17,6 +16,10 @@ import net.zomis.connblocks.gdx.MainScreen;
 public class ConnectingGame extends Game {
     private static final float STAGE_WIDTH = 800;
     private static final float STAGE_HEIGHT = 480;
+
+    private float startingInitialDistance;
+    private float startingZoom;
+
     public final GameHelper helper;
 
     public OrthographicCamera camera;
@@ -39,6 +42,7 @@ public class ConnectingGame extends Game {
 
         InputMultiplexer inputHandler = new InputMultiplexer();
         inputHandler.addProcessor(stage);
+        inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));
         Gdx.input.setInputProcessor(inputHandler);
         setScreen(new MainScreen(this));
     }
