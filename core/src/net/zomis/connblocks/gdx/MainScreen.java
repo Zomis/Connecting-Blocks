@@ -19,7 +19,7 @@ public class MainScreen implements Screen {
         this.game = game;
         renderer = new BlockMapRenderer(map);
 
-        map.addConnection(map.pos(3, 3), map.pos(3, 4));
+        map.addConnection(map.pos(3, 3), map.pos(3, 4)).setConnectGroups(1);
 
         map.pos(7, 1).setType(BlockType.IMPASSABLE);
         map.pos(3, 2).setType(BlockType.IMPASSABLE);
