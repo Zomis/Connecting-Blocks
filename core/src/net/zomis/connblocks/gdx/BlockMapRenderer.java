@@ -23,7 +23,7 @@ public class BlockMapRenderer {
         this.game = game;
     }
 
-    public void render(Batch batch, Matrix4 matrix) {
+    public void render(Batch batch, Matrix4 matrix, ConnectingBlocks activeConnection) {
         shape.setAutoShapeType(true);
         shape.setProjectionMatrix(matrix);
         for (int x = 0; x < game.getMapWidth(); x++) {
@@ -40,7 +40,11 @@ public class BlockMapRenderer {
         }
 
         for (ConnectingBlocks connection : game.getConnections()) {
-            shape.setColor(getConnColors(connection)[0]);
+            Color color = getConnColors(connection)[0];
+            if (connection == activeConnection) {
+                color.a = 0.7f;
+            }
+            shape.setColor(color);
 
             for (Block block : connection.getBlocks()) {
                 int x = block.getX();
@@ -52,8 +56,6 @@ public class BlockMapRenderer {
                 shape.end();
             }
         }
-
-
     }
 
     private static final Color[] connectColors = new Color[] { Color.BLUE, Color.RED, Color.GREEN, new Color(0xff, 0xff, 0, 1),
@@ -101,6 +103,9 @@ public class BlockMapRenderer {
     private Color colorFor(BlockType type) {
         if (type == null) {
             return Color.WHITE;
+        }
+        else if (type == BlockType.GOAL) {
+            return Color.GREEN;
         }
         else return Color.BLACK;
 

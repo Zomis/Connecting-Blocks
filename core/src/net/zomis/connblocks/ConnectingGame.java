@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import net.zomis.ConnBlocks;
+import net.zomis.Direction4;
 import net.zomis.connblocks.gdx.GameHelper;
 import net.zomis.connblocks.gdx.MainScreen;
 
@@ -27,6 +30,8 @@ public class ConnectingGame extends Game {
     public Stage stage;
     public Skin skin;
 
+    private BlockMap currentGame;
+
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
     }
@@ -43,9 +48,21 @@ public class ConnectingGame extends Game {
         InputMultiplexer inputHandler = new InputMultiplexer();
         inputHandler.addProcessor(stage);
         inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));
-        inputHandler.addProcessor(new GestureDetector(new CameraPanner(camera)));
+        ConnectionMover connectionMover = new ConnectionMover(new Runnable() {
+            @Override
+            public void run() {
+                Dialog dialog = new Dialog("Map Finished", skin);
+                dialog.button("OK", true);
+                dialog.show(stage);
+            }
+        });
+        inputHandler.addProcessor(new GestureDetector(connectionMover));
+//        inputHandler.addProcessor(new GestureDetector(new CameraPanner(camera)));
         Gdx.input.setInputProcessor(inputHandler);
-        setScreen(new MainScreen(this));
+
+        MainScreen mainScreen = new MainScreen(this, connectionMover);
+        setScreen(mainScreen);
+        currentGame = mainScreen.getMap();
     }
 
     @Override
