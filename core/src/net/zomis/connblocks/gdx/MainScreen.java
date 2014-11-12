@@ -34,8 +34,7 @@ public class MainScreen implements Screen {
     @Override
     public void render(float delta) {
 
-
-        renderer.render(game.batch, game.camera.combined, mover.getConnection());
+        renderer.render(game.batch, game.camera, mover.getConnection());
 
     }
 

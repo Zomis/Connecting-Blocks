@@ -40,7 +40,7 @@ public class ConnectingGame extends Game {
 	public void create () {
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
-        camera.setToOrtho(true, STAGE_WIDTH, STAGE_HEIGHT);
+        camera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
 
         batch = new SpriteBatch();
         stage = new Stage(new FitViewport(STAGE_WIDTH, STAGE_HEIGHT, camera), batch);

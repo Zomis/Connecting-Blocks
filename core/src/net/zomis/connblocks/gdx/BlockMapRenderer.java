@@ -1,6 +1,7 @@
 package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -23,8 +24,10 @@ public class BlockMapRenderer {
         this.game = game;
     }
 
-    public void render(Batch batch, Matrix4 matrix, ConnectingBlocks activeConnection) {
+    public void render(Batch batch, OrthographicCamera camera, ConnectingBlocks activeConnection) {
+        float mapHeight = (game.getMapHeight() - 1) * size;
         shape.setAutoShapeType(true);
+        Matrix4 matrix = camera.combined;
         shape.setProjectionMatrix(matrix);
         for (int x = 0; x < game.getMapWidth(); x++) {
             for (int y = 0; y < game.getMapHeight(); y++) {
@@ -33,7 +36,7 @@ public class BlockMapRenderer {
                 shape.setColor(colorFor(type));
                 shape.begin();
                 shape.set(ShapeRenderer.ShapeType.Filled);
-                shape.rect(x * size, y * size, size, size);
+                shape.rect(x * size, mapHeight - y * size, size, size);
                 shape.end();
 
             }
@@ -52,7 +55,7 @@ public class BlockMapRenderer {
                 shape.begin();
                 shape.set(ShapeRenderer.ShapeType.Filled);
 //                shape.rect(x, y, origx, origy, width, height, scale, scale, degrees, col, col, col, col);
-                shape.rect(x * size, y * size, size, size);
+                shape.rect(x * size, mapHeight - y * size, size, size);
                 shape.end();
             }
         }
