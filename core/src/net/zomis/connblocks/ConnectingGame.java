@@ -43,6 +43,7 @@ public class ConnectingGame extends Game {
         InputMultiplexer inputHandler = new InputMultiplexer();
         inputHandler.addProcessor(stage);
         inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));
+        inputHandler.addProcessor(new GestureDetector(new CameraPanner(camera)));
         Gdx.input.setInputProcessor(inputHandler);
         setScreen(new MainScreen(this));
     }
