@@ -24,6 +24,8 @@ public class BlockMap extends GenericMapModel<BlockTile> {
 	private Set<ConnectingBlocks> connections = new TreeSet<ConnectingBlocks>();
 	private int	lastid = 0;
 	private Set<BlockArea> areas = new HashSet<BlockArea>();
+
+    @JsonIgnore
     private EventExecutor events = new EventExecutor();
 
     BlockMap() {}

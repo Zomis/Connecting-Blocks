@@ -11,18 +11,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import net.zomis.connblocks.gdx.GameHelper;
 import net.zomis.connblocks.gdx.MainScreen;
 
 public class ConnectingGame extends Game {
     private static final float STAGE_WIDTH = 800;
     private static final float STAGE_HEIGHT = 480;
+    public final GameHelper helper;
 
     public OrthographicCamera camera;
     public SpriteBatch batch;
     public Stage stage;
     public Skin skin;
 
-	@Override
+    public ConnectingGame(GameHelper helper) {
+        this.helper = helper;
+    }
+
+    @Override
 	public void create () {
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
