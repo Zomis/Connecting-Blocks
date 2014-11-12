@@ -26,9 +26,9 @@ allprojects {
 
     repositories {
         mavenCentral()
-        mavenLocal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://www.zomis.net/maven/" }
     }
 }
 
@@ -95,7 +95,7 @@ project(":core") {
         compile "com.fasterxml.jackson.core:jackson-databind:2.4.2"
         compile "com.fasterxml.jackson.core:jackson-core:2.4.2"
         compile "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
-        compile "net.zomis:commons:0.0.1-SNAPSHOT"
+        compile "net.zomis:commons:0.1"
     }
 }
 
