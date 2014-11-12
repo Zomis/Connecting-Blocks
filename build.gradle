@@ -26,6 +26,7 @@ allprojects {
 
     repositories {
         mavenCentral()
+        mavenLocal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
@@ -91,6 +92,10 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.fasterxml.jackson.core:jackson-databind:2.4.2"
+        compile "com.fasterxml.jackson.core:jackson-core:2.4.2"
+        compile "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
+        compile "net.zomis:commons:0.0.1-SNAPSHOT"
     }
 }
 
