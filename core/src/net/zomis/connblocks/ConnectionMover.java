@@ -29,6 +29,9 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
                 dir = Direction4.direction(0, 0, 0, (int) Math.signum(velocityY));
             }
             ConnBlocks.log("Dir move " + dir + ": " + velocityX + ", " + velocityY);
+            if (dir == null) {
+                return false;
+            }
             connection.move(dir);
             map.stateBasedEffects();
             if (onGoal != null && map.checkForGoal()) {
