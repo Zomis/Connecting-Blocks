@@ -25,6 +25,12 @@ public class MainScreen implements Screen {
         map.pos(3, 2).setType(BlockType.IMPASSABLE);
         map.pos(2, 1).setType(BlockType.IMPASSABLE);
         map.pos(4, 4).setType(BlockType.IMPASSABLE);
+        map.pos(6, 6).setType(BlockType.IMPASSABLE);
+        map.pos(8, 8).setType(BlockType.IMPASSABLE);
+        map.pos(10, 10).setType(BlockType.IMPASSABLE);
+        map.pos(12, 12).setType(BlockType.IMPASSABLE);
+        map.pos(14, 14).setType(BlockType.IMPASSABLE);
+        map.pos(15, 15).setType(BlockType.IMPASSABLE);
     }
 
     @Override

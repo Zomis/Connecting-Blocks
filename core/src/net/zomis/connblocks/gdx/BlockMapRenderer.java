@@ -14,7 +14,7 @@ import net.zomis.connblocks.BlockType;
 public class BlockMapRenderer {
 
     private final BlockMap game;
-    private float size = 32;
+    private float size = 30;
     private final ShapeRenderer shape = new ShapeRenderer();
 
     public BlockMapRenderer(BlockMap game) {
