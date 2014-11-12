@@ -15,13 +15,12 @@ import net.zomis.ConnBlocks;
 import net.zomis.Direction4;
 import net.zomis.connblocks.gdx.GameHelper;
 import net.zomis.connblocks.gdx.MainScreen;
+import net.zomis.connblocks.levels.BlockLevelSet;
+import net.zomis.connblocks.levels.TutorialLevels;
 
 public class ConnectingGame extends Game {
     private static final float STAGE_WIDTH = 800;
     private static final float STAGE_HEIGHT = 480;
-
-    private float startingInitialDistance;
-    private float startingZoom;
 
     public final GameHelper helper;
 
@@ -29,8 +28,11 @@ public class ConnectingGame extends Game {
     public SpriteBatch batch;
     public Stage stage;
     public Skin skin;
+    private int level = 0;
 
     private BlockMap currentGame;
+    private MainScreen mainScreen;
+    private BlockLevelSet levelset = new TutorialLevels();
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -51,7 +53,13 @@ public class ConnectingGame extends Game {
         ConnectionMover connectionMover = new ConnectionMover(new Runnable() {
             @Override
             public void run() {
-                Dialog dialog = new Dialog("Map Finished", skin);
+                Dialog dialog = new Dialog("Map Finished", skin) {
+                    @Override
+                    protected void result(Object object) {
+                        super.result(object);
+                        nextLevel();
+                    }
+                };
                 dialog.button("OK", true);
                 dialog.show(stage);
             }
@@ -60,9 +68,14 @@ public class ConnectingGame extends Game {
 //        inputHandler.addProcessor(new GestureDetector(new CameraPanner(camera)));
         Gdx.input.setInputProcessor(inputHandler);
 
-        MainScreen mainScreen = new MainScreen(this, connectionMover);
+        mainScreen = new MainScreen(this, connectionMover, levelset);
         setScreen(mainScreen);
         currentGame = mainScreen.getMap();
+    }
+
+    private void nextLevel() {
+        level++;
+        mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
     }
 
     @Override

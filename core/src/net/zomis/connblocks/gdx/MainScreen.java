@@ -1,32 +1,26 @@
 package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.VertexAttribute;
 import net.zomis.connblocks.BlockMap;
-import net.zomis.connblocks.BlockType;
 import net.zomis.connblocks.ConnectingGame;
 import net.zomis.connblocks.ConnectionMover;
-import net.zomis.connblocks.levels.TutorialLevels;
+import net.zomis.connblocks.levels.BlockLevelSet;
 
 /**
  * Created by Zomis on 2014-11-12.
  */
 public class MainScreen implements Screen {
 
-    private final BlockMap map;
-    private final BlockMapRenderer renderer;
+    private BlockMap map;
+    private BlockMapRenderer renderer;
     private final ConnectingGame game;
     private final ConnectionMover mover;
 
-    public MainScreen(ConnectingGame game, ConnectionMover connectionMover) {
-        this.map = game.helper.loadLevel(new TutorialLevels().getLevel(0));
-        // map = new BlockMap(16, 16);
+    public MainScreen(ConnectingGame game, ConnectionMover connectionMover, BlockLevelSet set) {
         this.game = game;
         this.mover = connectionMover;
-        renderer = new BlockMapRenderer(map);
 
-        mover.setConnection(map.getConnections().iterator().next());
+        this.setMap(game.helper.loadLevel(set.getLevel(0)));
 //        new Mesh()
 //        new VertexAttribute()
     }
@@ -70,5 +64,11 @@ public class MainScreen implements Screen {
 
     public BlockMap getMap() {
         return map;
+    }
+
+    public void setMap(BlockMap map) {
+        this.map = map;
+        renderer = new BlockMapRenderer(map);
+        mover.setConnection(map.getConnections().iterator().next());
     }
 }
