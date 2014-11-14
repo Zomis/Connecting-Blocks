@@ -1,12 +1,8 @@
 package net.zomis.connblocks;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 
-/**
- * Created by Zomis on 2014-11-12.
- */
 public class PinchZoomer extends GestureDetector.GestureAdapter {
 
     private final OrthographicCamera camera;

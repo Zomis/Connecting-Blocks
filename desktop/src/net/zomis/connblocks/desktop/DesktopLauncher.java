@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 public class DesktopLauncher implements GameHelper {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 800;
+        config.height = 480;
 		new LwjglApplication(new ConnectingGame(new DesktopLauncher()), config);
 	}
 
