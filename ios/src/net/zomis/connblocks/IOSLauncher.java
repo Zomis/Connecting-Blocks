@@ -28,7 +28,7 @@ public class IOSLauncher extends IOSApplication.Delegate implements GameHelper {
     public BlockMap loadLevel(String level) {
         try {
             if (!level.startsWith("{")) {
-                level = new String(Base64.decodeBase64(level), "UTF-8");
+                level = new String(Base64.decodeBase64(level.getBytes()), "UTF-8");
             }
             return BlockMap.mapper().readValue(level, BlockMap.class).onLoad();
         }
