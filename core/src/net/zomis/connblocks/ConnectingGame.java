@@ -50,6 +50,9 @@ public class ConnectingGame extends Game {
         InputMultiplexer inputHandler = new InputMultiplexer();
         inputHandler.addProcessor(stage);
         inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));
+        final CameraPanner cameraPanner = new CameraPanner(camera);
+        cameraPanner.setEnabled(false);
+        inputHandler.addProcessor(new GestureDetector(cameraPanner));
         ConnectionMover connectionMover = new ConnectionMover(new Runnable() {
             @Override
             public void run() {
