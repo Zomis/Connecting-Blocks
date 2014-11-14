@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -42,6 +43,7 @@ public class ConnectingGame extends Game {
     private BlockLevelSet levelset = new TutorialLevels();
     private CheckBox panMode;
     private Texture bg;
+    public ShaderProgram shader;
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -49,6 +51,7 @@ public class ConnectingGame extends Game {
 
     @Override
 	public void create () {
+        shader = new ShaderProgram(Gdx.files.internal("shader.vert"), Gdx.files.internal("shader.frag"));
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         camera.setToOrtho(true, STAGE_WIDTH, STAGE_HEIGHT);
@@ -148,6 +151,7 @@ public class ConnectingGame extends Game {
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         hudStage.draw();*/
 
+        shader.setUniformMatrix("u_projTrans", camera.combined);
         for (ConnectionActor actor : mainScreen.actors) {
             actor.draw(null, 0);
         }

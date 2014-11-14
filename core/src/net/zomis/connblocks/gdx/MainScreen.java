@@ -82,7 +82,7 @@ public class MainScreen implements Screen {
         }
 
         for (ConnectingBlocks conn : map.getConnections()) {
-            ConnectionActor actor = new ConnectionActor(game.camera, conn);
+            ConnectionActor actor = new ConnectionActor(game, conn);
             actors.add(actor);
             game.stage.addActor(actor);
         }
