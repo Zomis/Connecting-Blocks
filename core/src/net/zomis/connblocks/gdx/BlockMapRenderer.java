@@ -118,7 +118,7 @@ public class BlockMapRenderer {
 
     private Color colorFor(BlockType type) {
         if (type == null) {
-            return Color.WHITE;
+            return Color.LIGHT_GRAY;
         }
         else if (type == BlockType.GOAL) {
             return Color.GREEN;
