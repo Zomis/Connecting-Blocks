@@ -20,7 +20,7 @@ public class CameraPanner extends GestureDetector.GestureAdapter {
         if (!enabled) {
             return false;
         }
-        camera.position.add(-deltaX, deltaY, 0);
+        camera.position.add(-deltaX, -deltaY, 0);
         return true;
     }
 
