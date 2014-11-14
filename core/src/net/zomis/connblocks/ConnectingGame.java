@@ -7,10 +7,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import net.zomis.ConnBlocks;
 import net.zomis.Direction4;
 import net.zomis.connblocks.gdx.GameHelper;
@@ -25,14 +31,18 @@ public class ConnectingGame extends Game {
     public final GameHelper helper;
 
     public OrthographicCamera camera;
+    public OrthographicCamera hudCamera;
     public SpriteBatch batch;
+    public SpriteBatch hudBatch;
     public Stage stage;
+    public Stage hudStage;
     public Skin skin;
     private int level = 0;
 
     private BlockMap currentGame;
     private MainScreen mainScreen;
     private BlockLevelSet levelset = new TutorialLevels();
+    private CheckBox panMode;
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -44,10 +54,16 @@ public class ConnectingGame extends Game {
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         camera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
 
+        hudCamera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
+        hudCamera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
+
         batch = new SpriteBatch();
+        hudBatch = new SpriteBatch();
         stage = new Stage(new FitViewport(STAGE_WIDTH, STAGE_HEIGHT, camera), batch);
+        hudStage = new Stage(new StretchViewport(STAGE_WIDTH, STAGE_HEIGHT, hudCamera), hudBatch);
 
         InputMultiplexer inputHandler = new InputMultiplexer();
+        inputHandler.addProcessor(hudStage);
         inputHandler.addProcessor(stage);
         inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));
         final CameraPanner cameraPanner = new CameraPanner(camera);
@@ -68,12 +84,28 @@ public class ConnectingGame extends Game {
             }
         });
         inputHandler.addProcessor(new GestureDetector(connectionMover));
-//        inputHandler.addProcessor(new GestureDetector(new CameraPanner(camera)));
         Gdx.input.setInputProcessor(inputHandler);
 
         mainScreen = new MainScreen(this, connectionMover, levelset);
         setScreen(mainScreen);
         currentGame = mainScreen.getMap();
+
+        Table table = new Table();
+        table.setDebug(true);
+        table.setFillParent(true);
+        table.right().bottom();
+        panMode = new CheckBox("Pan", skin);
+        table.add(panMode).right().bottom();
+        panMode.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                cameraPanner.setEnabled(panMode.isChecked());
+            }
+        });
+
+        hudStage.addActor(table);
+
+
     }
 
     private void nextLevel() {
@@ -89,7 +121,7 @@ public class ConnectingGame extends Game {
 
     @Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -98,6 +130,7 @@ public class ConnectingGame extends Game {
 		batch.end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-
+        hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        hudStage.draw();
     }
 }
