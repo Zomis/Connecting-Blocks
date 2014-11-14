@@ -10,11 +10,9 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -94,9 +92,19 @@ public class ConnectingGame extends Game {
         Table table = new Table();
         table.setDebug(true);
         table.setFillParent(true);
-        table.right().bottom();
+        table.bottom();
+
+        TextButton reset = new TextButton("Reset", skin);
+        table.add(reset).expandX().left().bottom();
+        reset.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
+            }
+        });
+
         panMode = new CheckBox("Pan", skin);
-        table.add(panMode).right().bottom();
+        table.add(panMode).expandX().right().bottom();
         panMode.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
