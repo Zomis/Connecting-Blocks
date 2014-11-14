@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import net.zomis.connblocks.gdx.ConnectionActor;
 import net.zomis.connblocks.gdx.GameHelper;
 import net.zomis.connblocks.gdx.MainScreen;
 import net.zomis.connblocks.levels.BlockLevelSet;
@@ -131,7 +132,7 @@ public class ConnectingGame extends Game {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
+/*        camera.update();
         hudCamera.update();
         batch.setProjectionMatrix(camera.combined);
         hudBatch.setProjectionMatrix(hudCamera.combined);
@@ -141,9 +142,15 @@ public class ConnectingGame extends Game {
         batch.begin();
         super.render();
 		batch.end();
+
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        hudStage.draw();
+        hudStage.draw();*/
+
+        for (ConnectionActor actor : mainScreen.actors) {
+            actor.draw(null, 0);
+        }
+
     }
 }

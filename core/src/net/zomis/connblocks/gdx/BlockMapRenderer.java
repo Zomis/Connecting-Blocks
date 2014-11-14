@@ -55,6 +55,10 @@ public class BlockMapRenderer {
             }
         }
 
+//        drawConnections(activeConnection, mapHeight);
+    }
+
+    private void drawConnections(ConnectingBlocks activeConnection, float mapHeight) {
         for (ConnectingBlocks connection : game.getConnections()) {
             Color color = getConnColors(connection)[0];
             if (connection == activeConnection) {

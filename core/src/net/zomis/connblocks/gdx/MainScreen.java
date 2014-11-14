@@ -2,9 +2,13 @@ package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Screen;
 import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.ConnectingGame;
 import net.zomis.connblocks.ConnectionMover;
 import net.zomis.connblocks.levels.BlockLevelSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Zomis on 2014-11-12.
@@ -16,6 +20,7 @@ public class MainScreen implements Screen {
     private BlockMapRenderer renderer;
     private final ConnectingGame game;
     private final ConnectionMover mover;
+    public final List<ConnectionActor> actors = new ArrayList<ConnectionActor>();
 
     public MainScreen(ConnectingGame game, ConnectionMover connectionMover, BlockLevelSet set) {
         this.game = game;
@@ -72,6 +77,14 @@ public class MainScreen implements Screen {
         this.map = map;
         renderer = new BlockMapRenderer(map);
         mover.setConnection(map.getConnections().iterator().next());
+        for (ConnectionActor actor : actors) {
+            actor.remove();
+        }
 
+        for (ConnectingBlocks conn : map.getConnections()) {
+            ConnectionActor actor = new ConnectionActor(game.camera, conn);
+            actors.add(actor);
+            game.stage.addActor(actor);
+        }
     }
 }
