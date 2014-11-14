@@ -61,7 +61,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        renderer.dispose();
     }
 
     public BlockMap getMap() {

@@ -2,9 +2,11 @@ package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import net.zomis.ConnBlocks;
 import net.zomis.connblocks.*;
 
 import java.util.LinkedList;
@@ -18,7 +20,11 @@ public class BlockMapRenderer {
 
     private final BlockMap game;
     public static final float size = 30;
+    private static final float SIZE_SPECIAL = size * 2 / 3;
+    private static final float OFFSET_SPECIAL = (size - SIZE_SPECIAL) / 2;
     private final ShapeRenderer shape = new ShapeRenderer();
+
+    private final Texture specialBlock = new Texture("marked.png");
 
     public BlockMapRenderer(BlockMap game) {
         this.game = game;
@@ -37,8 +43,15 @@ public class BlockMapRenderer {
                 shape.begin();
                 shape.set(ShapeRenderer.ShapeType.Filled);
                 shape.rect(x * size, mapHeight - y * size, size, size);
+                if (tile.getMoveStrategyFrom() != null || tile.getMoveStrategyTo() != null) {
+                    float xdraw = x * size + OFFSET_SPECIAL;
+                    float ydraw = mapHeight - y * size + OFFSET_SPECIAL;
+//                    ConnBlocks.log("Special block for " + tile + " at " + xdraw + ", " + ydraw + " size " + SIZE_SPECIAL);
+                    shape.setColor(Color.CYAN);
+                    shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
+//                    batch.draw(specialBlock, xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
+                }
                 shape.end();
-
             }
         }
 
@@ -114,5 +127,7 @@ public class BlockMapRenderer {
 
     }
 
-
+    public void dispose() {
+        specialBlock.dispose();
+    }
 }

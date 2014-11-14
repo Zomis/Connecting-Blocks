@@ -14,10 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import net.zomis.ConnBlocks;
-import net.zomis.Direction4;
 import net.zomis.connblocks.gdx.GameHelper;
 import net.zomis.connblocks.gdx.MainScreen;
 import net.zomis.connblocks.levels.BlockLevelSet;
@@ -39,7 +36,6 @@ public class ConnectingGame extends Game {
     public InputMultiplexer inputHandler = new InputMultiplexer();
     private int level = 0;
 
-    private BlockMap currentGame;
     private MainScreen mainScreen;
     private BlockLevelSet levelset = new TutorialLevels();
     private CheckBox panMode;
@@ -87,7 +83,6 @@ public class ConnectingGame extends Game {
 
         mainScreen = new MainScreen(this, connectionMover, levelset);
         setScreen(mainScreen);
-        currentGame = mainScreen.getMap();
 
         Table table = new Table();
         table.setDebug(true);
