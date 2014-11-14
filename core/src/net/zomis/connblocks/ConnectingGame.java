@@ -111,7 +111,9 @@ public class ConnectingGame extends Game {
 
     private void nextLevel() {
         level++;
-        mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
+        if (levelset.getLevelCount() > level) {
+            mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
+        }
     }
 
     @Override
