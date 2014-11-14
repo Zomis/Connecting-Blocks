@@ -40,9 +40,9 @@ public class ConnectionActor extends Actor {
         final int size = 50;
 
         mesh.setVertices(new float[] {
-                size*0, size*0,
-                size*0, size*2,
-                size*3, size*2,
+                size*0, size*0, 0,
+                size*1, size*1, 0,
+                size*1, size*2, 0,
         });
         mesh.setIndices(new short[]{ 0, 1, 2 });
     }

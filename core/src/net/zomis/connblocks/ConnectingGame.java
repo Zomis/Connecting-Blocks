@@ -135,11 +135,11 @@ public class ConnectingGame extends Game {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-/*        camera.update();
+        camera.update();
         hudCamera.update();
         batch.setProjectionMatrix(camera.combined);
         hudBatch.setProjectionMatrix(hudCamera.combined);
-        hudBatch.begin();
+/*        hudBatch.begin();
         hudBatch.draw(bg, 0, 0, STAGE_WIDTH, STAGE_HEIGHT);
         hudBatch.end();
         batch.begin();
@@ -147,9 +147,9 @@ public class ConnectingGame extends Game {
 		batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
+        stage.draw();*/
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        hudStage.draw();*/
+        hudStage.draw();
 
         shader.setUniformMatrix("u_projTrans", camera.combined);
         for (ConnectionActor actor : mainScreen.actors) {
