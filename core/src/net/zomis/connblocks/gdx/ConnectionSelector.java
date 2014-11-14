@@ -24,9 +24,8 @@ public class ConnectionSelector extends InputAdapter {
         }
         click.set(screenX, screenY, 0);
         game.camera.unproject(click);
-        float maxMapY = (mainScreen.getMap().getMapHeight() - 1) * BlockMapRenderer.size;
         int x = (int) (click.x / BlockMapRenderer.size);
-        int y = (int) ((maxMapY - click.y) / BlockMapRenderer.size);
+        int y = (int) (click.y / BlockMapRenderer.size);
 
         ConnBlocks.log("click at " + x + ", " + y);
         BlockTile tile = mainScreen.getMap().pos(x, y);

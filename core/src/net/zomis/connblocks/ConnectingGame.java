@@ -50,7 +50,7 @@ public class ConnectingGame extends Game {
 	public void create () {
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
-        camera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
+        camera.setToOrtho(true, STAGE_WIDTH, STAGE_HEIGHT);
 
         hudCamera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         hudCamera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
@@ -73,12 +73,11 @@ public class ConnectingGame extends Game {
                 Dialog dialog = new Dialog("Map Finished", skin) {
                     @Override
                     protected void result(Object object) {
-                        super.result(object);
                         nextLevel();
                     }
                 };
                 dialog.button("OK", true);
-                dialog.show(stage);
+                dialog.show(hudStage);
             }
         });
         inputHandler.addProcessor(new GestureDetector(connectionMover));

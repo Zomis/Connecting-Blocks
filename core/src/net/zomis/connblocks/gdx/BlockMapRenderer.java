@@ -31,7 +31,7 @@ public class BlockMapRenderer {
     }
 
     public void render(Batch batch, OrthographicCamera camera, ConnectingBlocks activeConnection) {
-        float mapHeight = (game.getMapHeight() - 2) * size;
+//        float mapHeight = (game.getMapHeight() - 2) * size;
         shape.setAutoShapeType(true);
         Matrix4 matrix = camera.combined;
         shape.setProjectionMatrix(matrix);
@@ -42,10 +42,10 @@ public class BlockMapRenderer {
                 shape.setColor(colorFor(type));
                 shape.begin();
                 shape.set(ShapeRenderer.ShapeType.Filled);
-                shape.rect(x * size, mapHeight - y * size, size, size);
+                shape.rect(x * size, y * size, size, size);
                 if (tile.getMoveStrategyFrom() != null || tile.getMoveStrategyTo() != null) {
                     float xdraw = x * size + OFFSET_SPECIAL;
-                    float ydraw = mapHeight - y * size + OFFSET_SPECIAL;
+                    float ydraw = y * size + OFFSET_SPECIAL;
 //                    ConnBlocks.log("Special block for " + tile + " at " + xdraw + ", " + ydraw + " size " + SIZE_SPECIAL);
                     shape.setColor(Color.CYAN);
                     shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
@@ -68,7 +68,7 @@ public class BlockMapRenderer {
                 shape.begin();
                 shape.set(ShapeRenderer.ShapeType.Filled);
 //                shape.rect(x, y, origx, origy, width, height, scale, scale, degrees, col, col, col, col);
-                shape.rect(x * size, mapHeight - y * size, size, size);
+                shape.rect(x * size, y * size, size, size);
                 shape.end();
             }
         }
