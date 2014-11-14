@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -37,6 +38,7 @@ public class ConnectingGame extends Game {
     public Stage stage;
     public Stage hudStage;
     public Skin skin;
+    public InputMultiplexer inputHandler = new InputMultiplexer();
     private int level = 0;
 
     private BlockMap currentGame;
@@ -62,7 +64,6 @@ public class ConnectingGame extends Game {
         stage = new Stage(new FitViewport(STAGE_WIDTH, STAGE_HEIGHT, camera), batch);
         hudStage = new Stage(new StretchViewport(STAGE_WIDTH, STAGE_HEIGHT, hudCamera), hudBatch);
 
-        InputMultiplexer inputHandler = new InputMultiplexer();
         inputHandler.addProcessor(hudStage);
         inputHandler.addProcessor(stage);
         inputHandler.addProcessor(new GestureDetector(new PinchZoomer(camera)));

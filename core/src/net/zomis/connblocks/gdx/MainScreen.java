@@ -11,6 +11,7 @@ import net.zomis.connblocks.levels.BlockLevelSet;
  */
 public class MainScreen implements Screen {
 
+    private final ConnectionSelector inputHandler;
     private BlockMap map;
     private BlockMapRenderer renderer;
     private final ConnectingGame game;
@@ -19,6 +20,7 @@ public class MainScreen implements Screen {
     public MainScreen(ConnectingGame game, ConnectionMover connectionMover, BlockLevelSet set) {
         this.game = game;
         this.mover = connectionMover;
+        inputHandler = new ConnectionSelector(this, game, mover);
 
         this.setMap(game.helper.loadLevel(set.getLevel(0)));
 //        new Mesh()
@@ -39,12 +41,12 @@ public class MainScreen implements Screen {
 
     @Override
     public void show() {
-
+        game.inputHandler.addProcessor(this.inputHandler);
     }
 
     @Override
     public void hide() {
-
+        game.inputHandler.removeProcessor(this.inputHandler);
     }
 
     @Override
@@ -70,5 +72,6 @@ public class MainScreen implements Screen {
         this.map = map;
         renderer = new BlockMapRenderer(map);
         mover.setConnection(map.getConnections().iterator().next());
+
     }
 }

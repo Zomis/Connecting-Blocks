@@ -17,7 +17,7 @@ import java.util.ListIterator;
 public class BlockMapRenderer {
 
     private final BlockMap game;
-    private float size = 30;
+    public static final float size = 30;
     private final ShapeRenderer shape = new ShapeRenderer();
 
     public BlockMapRenderer(BlockMap game) {
@@ -25,7 +25,7 @@ public class BlockMapRenderer {
     }
 
     public void render(Batch batch, OrthographicCamera camera, ConnectingBlocks activeConnection) {
-        float mapHeight = (game.getMapHeight() - 1) * size;
+        float mapHeight = (game.getMapHeight() - 2) * size;
         shape.setAutoShapeType(true);
         Matrix4 matrix = camera.combined;
         shape.setProjectionMatrix(matrix);
