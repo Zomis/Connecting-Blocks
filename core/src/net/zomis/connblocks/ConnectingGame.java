@@ -139,15 +139,13 @@ public class ConnectingGame extends Game {
         hudCamera.update();
         batch.setProjectionMatrix(camera.combined);
         hudBatch.setProjectionMatrix(hudCamera.combined);
-/*        hudBatch.begin();
+        hudBatch.begin();
         hudBatch.draw(bg, 0, 0, STAGE_WIDTH, STAGE_HEIGHT);
         hudBatch.end();
-        batch.begin();
         super.render();
-		batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();*/
+        stage.draw();
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         hudStage.draw();
 

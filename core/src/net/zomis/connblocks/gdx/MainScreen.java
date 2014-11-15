@@ -35,8 +35,8 @@ public class MainScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        renderer.render(game.batch, game.camera, mover.getConnection());
-
+        renderer.render(game.batch, game.camera);
+        renderer.drawConnections(mover.getConnection());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MainScreen implements Screen {
 
     public void setMap(BlockMap map) {
         this.map = map;
-        renderer = new BlockMapRenderer(map);
+        renderer = new BlockMapRenderer(game, map);
         mover.setConnection(map.getConnections().iterator().next());
         for (ConnectionActor actor : actors) {
             actor.remove();

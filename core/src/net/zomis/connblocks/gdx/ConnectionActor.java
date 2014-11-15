@@ -50,7 +50,7 @@ public class ConnectionActor extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         Color color = getColor();
-        mesh.render(game.shader, GL20.GL_TRIANGLES);
+//        mesh.render(game.shader, GL20.GL_TRIANGLES);
 /*        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());*/

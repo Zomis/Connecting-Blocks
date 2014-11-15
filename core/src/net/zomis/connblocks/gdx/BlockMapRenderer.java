@@ -24,14 +24,15 @@ public class BlockMapRenderer {
     private static final float OFFSET_SPECIAL = (size - SIZE_SPECIAL) / 2;
     private final ShapeRenderer shape = new ShapeRenderer();
 
-    private final Texture specialBlock = new Texture("marked.png");
+    private final Texture specialBlock = new Texture("white.png");
+    private final ConnectingGame connGame;
 
-    public BlockMapRenderer(BlockMap game) {
+    public BlockMapRenderer(ConnectingGame connGame, BlockMap game) {
         this.game = game;
+        this.connGame = connGame;
     }
 
-    public void render(Batch batch, OrthographicCamera camera, ConnectingBlocks activeConnection) {
-//        float mapHeight = (game.getMapHeight() - 2) * size;
+    public void render(Batch batch, OrthographicCamera camera) {
         shape.setAutoShapeType(true);
         Matrix4 matrix = camera.combined;
         shape.setProjectionMatrix(matrix);
@@ -54,28 +55,24 @@ public class BlockMapRenderer {
                 shape.end();
             }
         }
-
-//        drawConnections(activeConnection, mapHeight);
     }
 
-    private void drawConnections(ConnectingBlocks activeConnection, float mapHeight) {
+    public void drawConnections(ConnectingBlocks activeConnection) {
+        connGame.batch.begin();
         for (ConnectingBlocks connection : game.getConnections()) {
             Color color = getConnColors(connection)[0];
-            if (connection == activeConnection) {
-                color.a = 0.7f;
-            }
-            shape.setColor(color);
+            color.a = (connection == activeConnection ? 0.7f : 0.9f);
+
+            connGame.batch.setColor(color);
 
             for (Block block : connection.getBlocks()) {
                 int x = block.getX();
                 int y = block.getY();
-                shape.begin();
-                shape.set(ShapeRenderer.ShapeType.Filled);
-//                shape.rect(x, y, origx, origy, width, height, scale, scale, degrees, col, col, col, col);
-                shape.rect(x * size, y * size, size, size);
-                shape.end();
+
+                connGame.batch.draw(specialBlock, x*size, y*size, size, size);
             }
         }
+        connGame.batch.end();
     }
 
     private static final Color[] connectColors = new Color[] { Color.BLUE, Color.RED, Color.GREEN, new Color(0xff, 0xff, 0, 1),
