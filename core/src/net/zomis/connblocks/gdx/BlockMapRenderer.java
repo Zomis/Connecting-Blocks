@@ -1,12 +1,15 @@
 package net.zomis.connblocks.gdx;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import net.zomis.ConnBlocks;
+import net.zomis.IntPoint;
 import net.zomis.connblocks.*;
 
 import java.util.LinkedList;
@@ -26,10 +29,16 @@ public class BlockMapRenderer {
 
     private final Texture specialBlock = new Texture("white.png");
     private final ConnectingGame connGame;
+    private final ShaderProgram gradientShader;
 
     public BlockMapRenderer(ConnectingGame connGame, BlockMap game) {
         this.game = game;
+
         this.connGame = connGame;
+        gradientShader = new ShaderProgram(Gdx.files.internal("shader.vert"), Gdx.files.internal("shader.frag"));
+        if (!gradientShader.isCompiled()) {
+            ConnBlocks.log("shader error: " + gradientShader.getLog());
+        }
     }
 
     public void render(Batch batch, OrthographicCamera camera) {
@@ -56,23 +65,46 @@ public class BlockMapRenderer {
             }
         }
     }
+    private IntPoint po = new IntPoint();
+
 
     public void drawConnections(ConnectingBlocks activeConnection) {
         connGame.batch.begin();
+        gradientShader.setUniformMatrix("u_projTrans", connGame.camera.combined);
+//        gradientShader.setUniformMatrix("connColor", connGame.camera.combined);
+
         for (ConnectingBlocks connection : game.getConnections()) {
+            findTopLeft(connection, po);
+//            gradientShader.setUniformf("topLeft", po.getX() * size, po.getY() * size);
             Color color = getConnColors(connection)[0];
             color.a = (connection == activeConnection ? 0.7f : 0.9f);
 
             connGame.batch.setColor(color);
+            connGame.batch.setShader(gradientShader);
 
             for (Block block : connection.getBlocks()) {
                 int x = block.getX();
                 int y = block.getY();
-
-                connGame.batch.draw(specialBlock, x*size, y*size, size, size);
+                connGame.batch.draw(specialBlock, x * size, y * size, size, size);
             }
         }
+        connGame.batch.setShader(null);
         connGame.batch.end();
+    }
+
+    private void findTopLeft(ConnectingBlocks connection, IntPoint out) {
+        int x = Integer.MAX_VALUE;
+        int y = Integer.MAX_VALUE;
+        for (Block block : connection.getBlocks()) {
+            if (block.getX() < x) {
+                x = block.getX();
+            }
+            if (block.getY() < y) {
+                y = block.getY();
+            }
+        }
+        out.set(x, y);
+
     }
 
     private static final Color[] connectColors = new Color[] { Color.BLUE, Color.RED, Color.GREEN, new Color(0xff, 0xff, 0, 1),
