@@ -9,11 +9,14 @@ varying LOWP vec4 v_color;
 varying vec2 v_texCoords;
 uniform sampler2D u_texture;
 varying vec2 myPos;
+uniform vec4 colorA;
+uniform vec4 colorB;
 
 void main()
 {
-   float mult = mod(myPos.x, 25.0) / 25.0;
+   float period = 25.0;
+   float x = mod(myPos.x, period) / period;
+   float mult = abs(mod(x + 0.5, 1) - 0.5) * 2;
 
-
-   gl_FragColor = mult * texture2D(u_texture, v_texCoords);
+   gl_FragColor = mix(colorA, colorB, mult) * texture2D(u_texture, v_texCoords);
 }

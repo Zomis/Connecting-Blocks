@@ -76,6 +76,8 @@ public class BlockMapRenderer {
         for (ConnectingBlocks connection : game.getConnections()) {
             findTopLeft(connection, po);
 //            gradientShader.setUniformf("topLeft", po.getX() * size, po.getY() * size);
+            gradientShader.setUniformf("colorA", connectColors[0]);
+            gradientShader.setUniformf("colorB", connectColors[1]);
             Color color = getConnColors(connection)[0];
             color.a = (connection == activeConnection ? 0.7f : 0.9f);
 
