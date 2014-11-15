@@ -1,8 +1,10 @@
-package net.zomis.connblocks;
+package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.input.GestureDetector;
 import net.zomis.ConnBlocks;
 import net.zomis.Direction4;
+import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.ConnectingBlocks;
 
 /**
  * Created by Zomis on 2014-11-12.

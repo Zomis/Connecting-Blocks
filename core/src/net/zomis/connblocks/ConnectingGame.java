@@ -17,9 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import net.zomis.connblocks.gdx.ConnectionActor;
-import net.zomis.connblocks.gdx.GameHelper;
-import net.zomis.connblocks.gdx.MainScreen;
+import net.zomis.connblocks.gdx.*;
 import net.zomis.connblocks.levels.BlockLevelSet;
 import net.zomis.connblocks.levels.TutorialLevels;
 

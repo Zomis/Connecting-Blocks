@@ -1,4 +1,4 @@
-package net.zomis.connblocks;
+package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
