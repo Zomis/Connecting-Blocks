@@ -97,7 +97,7 @@ public class ConnectingGame extends Game {
         reset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
+                mainScreen.setMap(loadLevel(levelset.getLevel(level)));
             }
         });
 
@@ -127,7 +127,7 @@ public class ConnectingGame extends Game {
     private void nextLevel() {
         level++;
         if (levelset.getLevelCount() > level) {
-            mainScreen.setMap(helper.loadLevel(levelset.getLevel(level)));
+            mainScreen.setMap(loadLevel(levelset.getLevel(level)));
         }
     }
 
@@ -154,11 +154,14 @@ public class ConnectingGame extends Game {
         stage.draw();
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         hudStage.draw();
+    }
 
-//        shader.setUniformMatrix("u_projTrans", camera.combined);
-/*        for (ConnectionActor actor : mainScreen.actors) {
-            actor.draw(null, 0);
-        }*/
+    public BlockMap loadLevel(String level) {
+        boolean possibleJSON = level.startsWith("e") || level.startsWith("{");
+        if (possibleJSON && level.length() > 20) {
+            return helper.loadLevel(level);
+        }
 
+        return new MapLoader().load(level);
     }
 }

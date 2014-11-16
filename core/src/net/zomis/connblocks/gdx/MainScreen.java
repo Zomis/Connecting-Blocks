@@ -29,7 +29,7 @@ public class MainScreen implements Screen {
         this.mover = connectionMover;
         inputHandler = new ConnectionSelector(this, game, mover);
 
-        this.setMap(game.helper.loadLevel(set.getLevel(0)));
+        this.setMap(game.loadLevel(set.getLevel(0)));
     }
 
     @Override
