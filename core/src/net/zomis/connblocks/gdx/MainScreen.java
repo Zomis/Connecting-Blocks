@@ -4,7 +4,9 @@ import com.badlogic.gdx.Screen;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.ConnectingGame;
+import net.zomis.connblocks.events.ConnectionMergeEvent;
 import net.zomis.connblocks.levels.BlockLevelSet;
+import net.zomis.events.EventConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,5 +83,13 @@ public class MainScreen implements Screen {
             actors.add(actor);
             game.stage.addActor(actor);
         }
+        map.getEventExecutor().registerHandler(ConnectionMergeEvent.class, new EventConsumer<ConnectionMergeEvent>() {
+            @Override
+            public void executeEvent(ConnectionMergeEvent connectionMergeEvent) {
+                if (connectionMergeEvent.getSecondary() == mover.getConnection()) {
+                    mover.setConnection(connectionMergeEvent.getPrimary());
+                }
+            }
+        });
     }
 }
