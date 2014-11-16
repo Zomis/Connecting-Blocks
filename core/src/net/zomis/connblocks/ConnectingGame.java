@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import net.zomis.connblocks.gdx.*;
 import net.zomis.connblocks.levels.BlockLevelSet;
+import net.zomis.connblocks.levels.TestPack;
 import net.zomis.connblocks.levels.TutorialLevels;
 
 public class ConnectingGame extends Game {
@@ -38,7 +39,7 @@ public class ConnectingGame extends Game {
     private int level = 0;
 
     private MainScreen mainScreen;
-    private BlockLevelSet levelset = new TutorialLevels();
+    private BlockLevelSet levelset = new TestPack();
     private CheckBox panMode;
     private Texture bg;
     public ShaderProgram shader;
