@@ -17,6 +17,7 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
     private float totalY;
     private float STEP_DIVISOR = 50f;
     private boolean panning;
+    private boolean mapFinished;
 
     public ConnectionMover(Runnable onGoal) {
         this.onGoal = onGoal;
@@ -72,16 +73,22 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
     }
 
     private void move(Direction4 dir) {
+        if (mapFinished) {
+            return;
+        }
+
         BlockMap map = connection.getMap();
         map.stateBasedEffects();
         connection.move(dir);
         if (onGoal != null && map.checkForGoal()) {
             onGoal.run();
+            mapFinished = true;
         }
     }
 
     public void setConnection(ConnectingBlocks connection) {
         this.connection = connection;
+        mapFinished = false;
     }
 
     public ConnectingBlocks getConnection() {
