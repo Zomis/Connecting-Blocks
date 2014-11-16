@@ -27,15 +27,11 @@ public class MainScreen implements Screen {
         inputHandler = new ConnectionSelector(this, game, mover);
 
         this.setMap(game.helper.loadLevel(set.getLevel(0)));
-//        new Mesh()
-//        new VertexAttribute()
     }
 
     @Override
     public void render(float delta) {
-
         renderer.render(game.batch, game.camera);
-        renderer.drawConnections(mover.getConnection());
     }
 
     @Override

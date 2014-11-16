@@ -39,10 +39,9 @@ public class ConnectingGame extends Game {
     private int level = 0;
 
     private MainScreen mainScreen;
-    private BlockLevelSet levelset = new TestPack();
+    private BlockLevelSet levelset = new TutorialLevels();
     private CheckBox panMode;
     private Texture bg;
-    public ShaderProgram shader;
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -50,7 +49,6 @@ public class ConnectingGame extends Game {
 
     @Override
 	public void create () {
-        shader = new ShaderProgram(Gdx.files.internal("shader.vert"), Gdx.files.internal("shader.frag"));
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         camera.setToOrtho(true, STAGE_WIDTH, STAGE_HEIGHT);
@@ -148,10 +146,10 @@ public class ConnectingGame extends Game {
         hudStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         hudStage.draw();
 
-        shader.setUniformMatrix("u_projTrans", camera.combined);
-        for (ConnectionActor actor : mainScreen.actors) {
+//        shader.setUniformMatrix("u_projTrans", camera.combined);
+/*        for (ConnectionActor actor : mainScreen.actors) {
             actor.draw(null, 0);
-        }
+        }*/
 
     }
 }
