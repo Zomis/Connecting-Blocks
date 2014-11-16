@@ -104,7 +104,7 @@ public class ConnectionActor extends Actor {
         if (colors.length == 1) {
             gradientShader.setUniformf("colorA", colors[0]);
             gradientShader.setUniformf("colorB", colors[0]);
-            ConnBlocks.log(connection + " is one colored: " + colors[0]);
+//            ConnBlocks.log(connection + " is one colored: " + colors[0]);
             batch.setColor(colors[0]);
             batch.setShader(gradientShader);
         }
