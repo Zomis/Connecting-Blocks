@@ -101,6 +101,15 @@ public class ConnectingGame extends Game {
             }
         });
 
+        TextButton nextLevel = new TextButton("NEXT!", skin);
+        table.add(nextLevel).expandX().left().bottom();
+        nextLevel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                nextLevel();
+            }
+        });
+
         panMode = new CheckBox("Pan", skin);
         table.add(panMode).expandX().right().bottom();
         panMode.addListener(new ChangeListener() {
