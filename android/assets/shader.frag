@@ -15,7 +15,7 @@ uniform vec4 colorB;
 void main()
 {
    float period = 25.0;
-   float x = mod(myPos.x, period) / period;
+   float x = mod(myPos.x + myPos.y, period) / period;
    float mult = abs(mod(x + 0.5, 1) - 0.5) * 2;
 
    gl_FragColor = mix(colorA, colorB, mult) * texture2D(u_texture, v_texCoords);
