@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../tiles.png" width="128" height="32"/>
+ </tileset>
+ <layer name="map" width="15" height="13">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAA
+  </data>
+ </layer>
+ <objectgroup color="#0000ff" name="connection">
+  <properties>
+   <property name="connectGroups" value="1"/>
+   <property name="controllable" value="1"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="0"/>
+   <property name="pusher" value="0"/>
+  </properties>
+  <object x="96" y="64" width="32" height="64">
+   <properties>
+    <property name="connectGroups" value="1"/>
+    <property name="pusher" value="1"/>
+   </properties>
+  </object>
+  <object x="224" y="64" width="32" height="32">
+   <properties>
+    <property name="connectGroups" value="4"/>
+    <property name="controllable" value="0"/>
+    <property name="farAway" value="1"/>
+    <property name="pushable" value="1"/>
+   </properties>
+  </object>
+  <object x="160" y="224" width="32" height="32">
+   <properties>
+    <property name="connectGroups" value="2"/>
+    <property name="farAway" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="special">
+  <object x="288" y="192" width="32" height="32">
+   <properties>
+    <property name="denyDirections" value="U"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
