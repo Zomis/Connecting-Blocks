@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="11" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../tiles.png" width="128" height="32"/>
+ </tileset>
+ <layer name="map" width="11" height="11">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAEAAAABAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAgAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAIAAAACAAAAAQAAAAEAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAgAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAA==
+  </data>
+ </layer>
+ <objectgroup color="#0000ff" name="connection">
+  <properties>
+   <property name="connectGroups" value="1"/>
+   <property name="controllable" value="1"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="0"/>
+   <property name="pusher" value="0"/>
+  </properties>
+  <object x="256" y="96" width="64" height="32">
+   <properties>
+    <property name="connectGroups" value="1"/>
+   </properties>
+  </object>
+  <object x="32" y="128" width="64" height="32">
+   <properties>
+    <property name="connectGroups" value="2"/>
+    <property name="controllable" value="0"/>
+   </properties>
+  </object>
+  <object x="64" y="288" width="32" height="32">
+   <properties>
+    <property name="connectGroups" value="3"/>
+    <property name="controllable" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="specials">
+  <object x="128" y="160" width="96" height="32">
+   <properties>
+    <property name="forward" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
