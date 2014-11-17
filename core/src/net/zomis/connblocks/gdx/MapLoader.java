@@ -63,19 +63,43 @@ public class MapLoader {
 
     private void loadSpecials(TiledMap tiled, BlockMap result, MapLayer layer) {
         Iterator<MapObject> it = layer.getObjects().iterator();
+        int blockLink = -1;
+        BlockTile blockLinkTile = null;
         while (it.hasNext()) {
             MapObject obj = it.next();
             Set<BlockTile> blocks = tilesForObject(result, obj);
             for (BlockTile tile : blocks) {
-                setupSpecial(tile, obj, layer);
+                int bl = setupSpecial(tile, obj, layer);
+                if (bl != -1) {
+                    if (blocks.size() != 1) {
+                        throw new RuntimeException("Map Object `blockLink` with more than one block are not yet supported");
+                    }
+                    if (blockLink == -1) {
+                        blockLink = bl;
+                        blockLinkTile = tile;
+                    }
+                    else if (blockLink == bl) {
+                        new BlockLink(blockLinkTile, tile);
+                        blockLink = -1;
+                        blockLinkTile = null;
+                    }
+                    else {
+                        throw new RuntimeException("Too many `blockLink` on the same layer. Searched for " + blockLink +
+                            " but found " + bl);
+                    }
+                }
             }
+        }
+        if (blockLink != -1) {
+            throw new RuntimeException("`blockLink` not closed: " + blockLink);
         }
     }
 
-    private void setupSpecial(BlockTile tile, MapObject obj, MapLayer layer) {
+    private int setupSpecial(BlockTile tile, MapObject obj, MapLayer layer) {
         List<MoveStrategy> strategies = new ArrayList<MoveStrategy>();
         Map<String, Object> combinedProperties = combinedProperties(obj.getProperties(), layer.getProperties());
         int limit = -1;
+        int blockLink = -1;
         for (Map.Entry<String, Object> ee : combinedProperties.entrySet()) {
             String key = ee.getKey();
             if (key.equals("blockBreak")) {
@@ -88,7 +112,7 @@ public class MapLoader {
             }
             if (key.equals("blockLink")) {
                 // correct strategies are setup in constructor
-                throw new UnsupportedOperationException(key + " not supported yet");
+                blockLink = intValue(ee.getValue());
             }
             if (key.equals("modifier")) {
                 // to
@@ -135,6 +159,13 @@ public class MapLoader {
             }
         }
 
+        if (strategies.isEmpty()) {
+            if (blockLink == -1) {
+                throw new RuntimeException("Useless Map Object: " + tile);
+            }
+            return blockLink;
+        }
+
         MoveStrategy strategy;
         if (strategies.size() > 1) {
             ConnBlocks.log(strategies.size() + " strategies on " + tile + ": " + strategies);
@@ -153,6 +184,7 @@ public class MapLoader {
         }
         ConnBlocks.log("Strategy on " + tile + ": " + strategy);
         tile.setMoveStrategyTo(strategy);
+        return blockLink;
     }
 
     private int intValue(Object value) {
