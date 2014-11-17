@@ -9,12 +9,10 @@ public class ConnectionSelector extends InputAdapter {
     private final Vector3 click = new Vector3();
     private final ConnectingGame game;
     private final MainScreen mainScreen;
-    private final ConnectionMover mover;
 
-    public ConnectionSelector(MainScreen mainScreen, ConnectingGame game, ConnectionMover mover) {
+    public ConnectionSelector(MainScreen mainScreen, ConnectingGame game) {
         this.game = game;
         this.mainScreen = mainScreen;
-        this.mover = mover;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class ConnectionSelector extends InputAdapter {
             return false;
         }
 
-        mover.setConnection(connection);
+        mainScreen.selectConnection(connection);
 
         return true;
     }

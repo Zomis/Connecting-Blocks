@@ -1,6 +1,7 @@
 package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.events.ConnectionAddedEvent;
@@ -26,7 +27,7 @@ public class MainScreen implements Screen {
     public MainScreen(ConnectingGame game, ConnectionMover connectionMover, BlockLevelSet set) {
         this.game = game;
         this.mover = connectionMover;
-        inputHandler = new ConnectionSelector(this, game, mover);
+        inputHandler = new ConnectionSelector(this, game);
 
         this.setMap(game.loadLevel(set, 0));
     }
@@ -73,31 +74,52 @@ public class MainScreen implements Screen {
     public void setMap(BlockMap map) {
         this.map = map;
         renderer = new BlockMapRenderer(game, map);
-        mover.setConnection(map.getConnections().iterator().next());
         for (ConnectionActor actor : actors) {
             actor.remove();
         }
 
         for (ConnectingBlocks conn : map.getConnections()) {
-            ConnectionActor actor = new ConnectionActor(game, conn);
+            ConnectionActor actor = new ConnectionActor(game, conn, mover);
             actors.add(actor);
             game.stage.addActor(actor);
         }
+
+        selectConnection(map.getConnections().iterator().next());
+
         map.getEventExecutor().registerHandler(ConnectionMergeEvent.class, new EventConsumer<ConnectionMergeEvent>() {
             @Override
             public void executeEvent(ConnectionMergeEvent connectionMergeEvent) {
                 if (connectionMergeEvent.getSecondary() == mover.getConnection()) {
-                    mover.setConnection(connectionMergeEvent.getPrimary());
+                    selectConnection(connectionMergeEvent.getPrimary());
                 }
             }
         });
         map.getEventExecutor().registerHandler(ConnectionAddedEvent.class, new EventConsumer<ConnectionAddedEvent>() {
             @Override
             public void executeEvent(ConnectionAddedEvent event) {
-                ConnectionActor actor = new ConnectionActor(game, event.getConnection());
+                ConnectionActor actor = new ConnectionActor(game, event.getConnection(), mover);
                 actors.add(actor);
                 game.stage.addActor(actor);
             }
         });
+    }
+
+    public void selectConnection(ConnectingBlocks connection) {
+        if (mover.getConnection() == connection) {
+            return;
+        }
+
+        for (ConnectionActor actor : actors) {
+            actor.clearActions();
+            actor.getColor().a = 1.0f;
+            if (actor.getConnection() == connection) {
+                actor.addAction(Actions.forever(Actions.sequence(
+                        Actions.alpha(0.3f, 1.5f),
+                        Actions.alpha(0.8f, 1.5f)
+                )));
+            }
+        }
+
+        mover.setConnection(connection);
     }
 }
