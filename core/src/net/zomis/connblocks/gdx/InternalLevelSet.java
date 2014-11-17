@@ -22,7 +22,7 @@ public class InternalLevelSet implements BlockLevelSet {
 
     @Override
     public String getLevel(int i) {
-        return "levels/" + name + "/" + name + "-" + i;
+        return "levels/" + name + "/" + name + "-" + (i + 1);
     }
 
     @Override
