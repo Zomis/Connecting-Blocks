@@ -12,10 +12,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import net.zomis.ConnBlocks;
-import net.zomis.connblocks.BlockMap;
-import net.zomis.connblocks.BlockTile;
-import net.zomis.connblocks.BlockType;
-import net.zomis.connblocks.MoveStrategy;
+import net.zomis.connblocks.*;
 import net.zomis.connblocks.move.*;
 
 import java.util.*;
@@ -155,11 +152,54 @@ public class MapLoader {
 
     private void loadConnections(TiledMap tiled, BlockMap result, MapLayer layer) {
         Iterator<MapObject> it = layer.getObjects().iterator();
+        final String CONNECT_GROUPS = "connectGroups";
+        final String CONTROLLABLE = "controllable";
+        final String FAR_AWAY = "farAway";
+        final String PUSHABLE = "pushable";
+        final String PUSHER = "pusher";
+        String[] knownProperties = new String[]{ CONNECT_GROUPS, CONTROLLABLE, FAR_AWAY, PUSHABLE, PUSHER,
+            "x", "y", "width", "height"};
+        checkProperties(knownProperties, layer.getProperties());
         while (it.hasNext()) {
             MapObject obj = it.next();
             Set<BlockTile> blocks = tilesForObject(result, obj);
-            result.addConnection(blocks.toArray(new BlockTile[blocks.size()]));
+            ConnectingBlocks connection = result.addConnection(blocks.toArray(new BlockTile[blocks.size()]));
+            connection.setConnectGroups(intValue(1, CONNECT_GROUPS, obj.getProperties(), layer.getProperties()));
+            connection.setControllable(bool(false, CONTROLLABLE, obj.getProperties(), layer.getProperties()));
+            connection.setFarAway(bool(false, FAR_AWAY, obj.getProperties(), layer.getProperties()));
+            connection.setPushable(bool(false, PUSHABLE, obj.getProperties(), layer.getProperties()));
+            connection.setPusher(bool(false, PUSHER, obj.getProperties(), layer.getProperties()));
+
+            checkProperties(knownProperties, obj.getProperties());
         }
+    }
+
+    private void checkProperties(String[] knownProperties, MapProperties properties) {
+        Iterator<String> it = properties.getKeys();
+        outer:
+        while (it.hasNext()) {
+            String key = it.next();
+            for (String knownKey : knownProperties) {
+                if (knownKey.equals(key)) {
+                    continue outer;
+                }
+            }
+            throw new RuntimeException("Unknown property: " + key + " known is: " + Arrays.toString(knownProperties));
+        }
+    }
+
+    private int intValue(int defaultValue, String key, MapProperties... properties) {
+        for (MapProperties prop : properties) {
+            Object value = prop.get(key);
+            if (value != null) {
+                return Integer.parseInt(String.valueOf(value));
+            }
+        }
+        return defaultValue;
+    }
+
+    private boolean bool(boolean defaultValue, String key, MapProperties... properties) {
+        return intValue(-1, key, properties) > 0;
     }
 
     private Set<BlockTile> tilesForObject(BlockMap map, MapObject obj) {
