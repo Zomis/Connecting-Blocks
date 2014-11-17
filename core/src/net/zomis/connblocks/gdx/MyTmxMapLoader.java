@@ -20,7 +20,7 @@ public class MyTmxMapLoader extends TmxMapLoader {
     private final FileHandle handle;
 
     public MyTmxMapLoader() {
-        this.handle = Gdx.files.internal("tiles.png");
+        this.handle = Gdx.files.internal("levels/tiles.png");
     }
 
     @Override
