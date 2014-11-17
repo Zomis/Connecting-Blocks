@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import net.zomis.ConnBlocks;
@@ -43,25 +42,25 @@ public class MapLoader {
 
         Iterator<MapLayer> layers = tiled.getLayers().iterator();
         while (layers.hasNext()) {
-            loadLayer(tiled, map, layers.next());
+            loadLayer(map, layers.next());
         }
         tiled.dispose();
         return map;
     }
 
-    private void loadLayer(TiledMap tiled, BlockMap result, MapLayer layer) {
+    private void loadLayer(BlockMap result, MapLayer layer) {
         if (layer.getName().equals("map")) {
-            loadMapLayer(tiled, result, (TiledMapTileLayer) layer);
+            loadMapLayer(result, (TiledMapTileLayer) layer);
         }
         else if (layer.getName().toLowerCase().startsWith("conn")) {
-            loadConnections(tiled, result, layer);
+            loadConnections(result, layer);
         }
         else if (layer.getName().toLowerCase().startsWith("spec")) {
-            loadSpecials(tiled, result, layer);
+            loadSpecials(result, layer);
         }
     }
 
-    private void loadSpecials(TiledMap tiled, BlockMap result, MapLayer layer) {
+    private void loadSpecials(BlockMap result, MapLayer layer) {
         Iterator<MapObject> it = layer.getObjects().iterator();
         int blockLink = -1;
         BlockTile blockLinkTile = null;
@@ -203,7 +202,7 @@ public class MapLoader {
         return result;
     }
 
-    private void loadConnections(TiledMap tiled, BlockMap result, MapLayer layer) {
+    private void loadConnections(BlockMap result, MapLayer layer) {
         Iterator<MapObject> it = layer.getObjects().iterator();
         final String CONNECT_GROUPS = "connectGroups";
         final String CONTROLLABLE = "controllable";
@@ -303,7 +302,7 @@ public class MapLoader {
         }
     }
 
-    private void loadMapLayer(TiledMap tiled, BlockMap result, TiledMapTileLayer layer) {
+    private void loadMapLayer(BlockMap result, TiledMapTileLayer layer) {
         BlockType[] blockTypes = BlockType.values();
         int height = result.getMapHeight();
         for (int x = 0; x < result.getMapWidth(); x++) {
