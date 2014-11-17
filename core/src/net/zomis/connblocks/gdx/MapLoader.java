@@ -114,7 +114,7 @@ public class MapLoader {
             }
             if (key.equals("usageCount")) {
                 // to or from
-                limit = (Integer) ee.getValue();
+                limit = intValue(ee.getValue());
             }
             if (key.equals("noForward")) {
                 // to *and* from, setup in constructor
@@ -122,8 +122,8 @@ public class MapLoader {
             }
             if (key.equals("minSize")) {
                 // to
-                int maxSize = (Integer) combinedProperties.get("maxSize");
-                strategies.add(new RequiredConnection((Integer) ee.getValue(), maxSize));
+                int maxSize = intValue(combinedProperties.get("maxSize"));
+                strategies.add(new RequiredConnection(intValue(ee.getValue()), maxSize));
             }
             if (key.equals("requiredColor")) {
                 // to
