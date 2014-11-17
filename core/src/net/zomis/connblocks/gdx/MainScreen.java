@@ -79,7 +79,7 @@ public class MainScreen implements Screen {
         }
 
         for (ConnectingBlocks conn : map.getConnections()) {
-            ConnectionActor actor = new ConnectionActor(game, conn, mover);
+            ConnectionActor actor = new ConnectionActor(game, conn);
             actors.add(actor);
             game.stage.addActor(actor);
         }
@@ -97,7 +97,7 @@ public class MainScreen implements Screen {
         map.getEventExecutor().registerHandler(ConnectionAddedEvent.class, new EventConsumer<ConnectionAddedEvent>() {
             @Override
             public void executeEvent(ConnectionAddedEvent event) {
-                ConnectionActor actor = new ConnectionActor(game, event.getConnection(), mover);
+                ConnectionActor actor = new ConnectionActor(game, event.getConnection());
                 actors.add(actor);
                 game.stage.addActor(actor);
             }

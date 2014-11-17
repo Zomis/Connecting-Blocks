@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import net.zomis.IntPoint;
 import net.zomis.connblocks.Block;
 import net.zomis.connblocks.ConnectingBlocks;
 
@@ -19,12 +18,10 @@ public class ConnectionActor extends Actor {
     private final Texture texture = new Texture("white.png");
     private final ConnectingGame game;
     private final ShaderProgram gradientShader;
-    private final ConnectionMover mover;
 
-    public ConnectionActor(ConnectingGame game, ConnectingBlocks connection, ConnectionMover mover) {
+    public ConnectionActor(ConnectingGame game, ConnectingBlocks connection) {
         this.game = game;
         this.connection = connection;
-        this.mover = mover;
         gradientShader = new ShaderProgram(Gdx.files.internal("shader.vert"), Gdx.files.internal("shader.frag"));
     }
 
