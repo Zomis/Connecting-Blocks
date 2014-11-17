@@ -217,7 +217,7 @@ public class MapLoader {
             Set<BlockTile> blocks = tilesForObject(result, obj);
             ConnectingBlocks connection = result.addConnection(blocks.toArray(new BlockTile[blocks.size()]));
             connection.setConnectGroups(intValue(1, CONNECT_GROUPS, obj.getProperties(), layer.getProperties()));
-            connection.setControllable(bool(false, CONTROLLABLE, obj.getProperties(), layer.getProperties()));
+            connection.setControllable(bool(true, CONTROLLABLE, obj.getProperties(), layer.getProperties()));
             connection.setFarAway(bool(false, FAR_AWAY, obj.getProperties(), layer.getProperties()));
             connection.setPushable(bool(false, PUSHABLE, obj.getProperties(), layer.getProperties()));
             connection.setPusher(bool(false, PUSHER, obj.getProperties(), layer.getProperties()));
@@ -251,7 +251,7 @@ public class MapLoader {
     }
 
     private boolean bool(boolean defaultValue, String key, MapProperties... properties) {
-        return intValue(-1, key, properties) > 0;
+        return intValue(defaultValue ? 1 : -1, key, properties) > 0;
     }
 
     private Set<BlockTile> tilesForObject(BlockMap map, MapObject obj) {
