@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import net.zomis.ConnBlocks;
+import net.zomis.Direction4;
 import net.zomis.connblocks.*;
 import net.zomis.connblocks.move.*;
 
@@ -102,7 +103,14 @@ public class MapLoader {
                 strategies.add(new ForwardMover());
             }
             if (key.equals("denyDirections")) {
-                // to or from
+                // to
+                String value = (String) ee.getValue();
+                List<Direction4> dirs = new ArrayList<Direction4>();
+                if (value.contains("L")) dirs.add(Direction4.LEFT);
+                if (value.contains("U")) dirs.add(Direction4.UP);
+                if (value.contains("R")) dirs.add(Direction4.RIGHT);
+                if (value.contains("D")) dirs.add(Direction4.DOWN);
+                strategies.add(new LimitedDirections(dirs.toArray(new Direction4[dirs.size()])));
             }
             if (key.equals("usageCount")) {
                 // to or from
