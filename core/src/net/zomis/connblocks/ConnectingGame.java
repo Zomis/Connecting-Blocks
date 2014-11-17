@@ -39,7 +39,7 @@ public class ConnectingGame extends Game {
     private int level = 0;
 
     private MainScreen mainScreen;
-    private BlockLevelSet levelset = new TutorialLevels();
+    private BlockLevelSet levelset;
     private CheckBox panMode;
     private Texture bg;
 
@@ -49,6 +49,8 @@ public class ConnectingGame extends Game {
 
     @Override
 	public void create () {
+        levelset = new InternalLevelSet("tutorial");
+
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         camera.setToOrtho(true, STAGE_WIDTH, STAGE_HEIGHT);
