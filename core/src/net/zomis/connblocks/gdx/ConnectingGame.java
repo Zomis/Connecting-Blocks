@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,10 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.PinchZoomer;
-import net.zomis.connblocks.gdx.*;
 import net.zomis.connblocks.levels.BlockLevelSet;
-import net.zomis.connblocks.levels.TestPack;
-import net.zomis.connblocks.levels.TutorialLevels;
 
 public class ConnectingGame extends Game {
     private static final float STAGE_WIDTH = 800;
@@ -51,7 +47,7 @@ public class ConnectingGame extends Game {
 
     @Override
 	public void create () {
-        levelset = new InternalLevelSet("tutorial");
+        levelset = new TMXLevelSet(Gdx.files.internal("levels/tutorial"));
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
@@ -101,7 +97,7 @@ public class ConnectingGame extends Game {
         reset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainScreen.setMap(loadLevel(levelset.getLevel(level)));
+                mainScreen.setMap(loadLevel(levelset, level));
             }
         });
 
@@ -131,7 +127,7 @@ public class ConnectingGame extends Game {
     private void nextLevel() {
         level++;
         if (levelset.getLevelCount() > level) {
-            mainScreen.setMap(loadLevel(levelset.getLevel(level)));
+            mainScreen.setMap(loadLevel(levelset, level));
         }
     }
 
@@ -160,12 +156,11 @@ public class ConnectingGame extends Game {
         hudStage.draw();
     }
 
-    public BlockMap loadLevel(String level) {
-        boolean possibleJSON = level.startsWith("e") || level.startsWith("{");
-        if (possibleJSON && level.length() > 20) {
-            return helper.loadLevel(level);
+    public BlockMap loadLevel(BlockLevelSet levelSet, int level) {
+        BlockMap map = levelset.getLevel(level);
+        if (map == null) {
+            return helper.loadLevel(levelSet.getLevelData(level));
         }
-
-        return new MapLoader().load(level);
+        return map;
     }
 }

@@ -18,9 +18,16 @@ import java.io.IOException;
 public class MyTmxMapLoader extends TmxMapLoader {
 
     private final FileHandle handle;
+    private final FileHandle file;
 
-    public MyTmxMapLoader() {
+    public MyTmxMapLoader(FileHandle fileHandle) {
         this.handle = Gdx.files.internal("levels/tiles.png");
+        this.file = fileHandle;
+    }
+
+    @Override
+    public FileHandle resolve(String fileName) {
+        return file;
     }
 
     @Override

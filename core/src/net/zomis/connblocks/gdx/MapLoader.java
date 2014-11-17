@@ -1,5 +1,7 @@
 package net.zomis.connblocks.gdx;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -27,9 +29,9 @@ public class MapLoader {
     public MapLoader() {
     }
 
-    public BlockMap load(String fileName) {
-        TmxMapLoader loader = new MyTmxMapLoader();
-        TiledMap tiled = loader.load(fileName + ".tmx");
+    public BlockMap load(FileHandle fileName) {
+        MyTmxMapLoader loader = new MyTmxMapLoader(fileName);
+        TiledMap tiled = loader.load(fileName.name());
 
         Iterator<String> it = tiled.getProperties().getKeys();
         while (it.hasNext()) {

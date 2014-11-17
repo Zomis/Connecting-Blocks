@@ -2,27 +2,34 @@ package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.levels.BlockLevelSet;
 
 /**
  * Created by Zomis on 2014-11-16.
  */
-public class InternalLevelSet implements BlockLevelSet {
+public class TMXLevelSet implements BlockLevelSet {
     private final String name;
     private final int count;
+    private final FileHandle directory;
 
-    public InternalLevelSet(String name) {
-        this.name = name;
-        FileHandle directory = Gdx.files.internal("levels/" + name);
+    public TMXLevelSet(FileHandle directory) {
         if (!directory.exists() || !directory.isDirectory()) {
-            throw new IllegalArgumentException(name + " is not a valid internal levelset");
+            throw new IllegalArgumentException(directory + " is not a valid levelset directory");
         }
+        this.name = directory.name();
+        this.directory = directory;
         this.count = directory.list().length;
     }
 
     @Override
-    public String getLevel(int i) {
-        return "levels/" + name + "/" + name + "-" + (i + 1);
+    public String getLevelData(int i) {
+        return null;
+    }
+
+    @Override
+    public BlockMap getLevel(int i) {
+        return new MapLoader().load(directory.child(name + "-" + (i + 1) + ".tmx"));
     }
 
     @Override

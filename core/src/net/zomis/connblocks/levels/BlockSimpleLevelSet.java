@@ -1,5 +1,7 @@
 package net.zomis.connblocks.levels;
 
+import net.zomis.connblocks.BlockMap;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,8 +11,14 @@ public class BlockSimpleLevelSet implements BlockLevelSet {
 	
 	public BlockSimpleLevelSet() {
 	}
-	@Override
-	public String getLevel(int i) {
+
+    @Override
+    public BlockMap getLevel(int i) {
+        return null;
+    }
+
+    @Override
+	public String getLevelData(int i) {
 		return str.get(i);
 	}
 	@Override
