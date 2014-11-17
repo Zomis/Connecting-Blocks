@@ -110,6 +110,7 @@ public class MapLoader {
             }
             if (key.equals("noForward")) {
                 // to *and* from, setup in constructor
+                new NotContinueForward(tile);
             }
             if (key.equals("minSize")) {
                 // to
