@@ -40,6 +40,7 @@ public class ConnectingGame extends Game {
     private BlockLevelSet levelset;
     private CheckBox panMode;
     private Texture bg;
+    private ConnectionMover connectionMover;
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -68,7 +69,7 @@ public class ConnectingGame extends Game {
         final CameraPanner cameraPanner = new CameraPanner(camera);
         cameraPanner.setEnabled(false);
         inputHandler.addProcessor(new GestureDetector(cameraPanner));
-        ConnectionMover connectionMover = new ConnectionMover(new Runnable() {
+        connectionMover = new ConnectionMover(new Runnable() {
             @Override
             public void run() {
                 Dialog dialog = new Dialog("Map Finished", skin) {
@@ -84,8 +85,7 @@ public class ConnectingGame extends Game {
         inputHandler.addProcessor(new GestureDetector(connectionMover));
         Gdx.input.setInputProcessor(inputHandler);
 
-        mainScreen = new MainScreen(this, connectionMover, levelset);
-        setScreen(mainScreen);
+        setScreen(new LevelsetPickScreen(this));
 
         Table table = new Table();
         table.setDebug(true);
@@ -162,5 +162,11 @@ public class ConnectingGame extends Game {
             return helper.loadLevel(levelSet.getLevelData(level));
         }
         return map;
+    }
+
+    public void loadLevelset(BlockLevelSet levelSet) {
+        levelset = levelSet;
+        mainScreen = new MainScreen(this, connectionMover, levelSet);
+        setScreen(mainScreen);
     }
 }
