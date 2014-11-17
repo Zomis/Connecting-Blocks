@@ -8,14 +8,14 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import net.zomis.ConnBlocks;
-import net.zomis.connblocks.Block;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.BlockTile;
 import net.zomis.connblocks.BlockType;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -50,7 +50,6 @@ public class MapLoader {
 
 
         map.pos(1, 1).setType(BlockType.GOAL);
-        map.addConnection(map.pos(2, 2));
         tiled.dispose();
         return map;
     }
@@ -84,16 +83,24 @@ public class MapLoader {
         Set<BlockTile> result = new HashSet<BlockTile>();
         if (obj instanceof PolygonMapObject) {
             PolygonMapObject poly = (PolygonMapObject) obj;
-            poly.getPolygon().getVertices();
-//            throw new UnsupportedOperationException("Polygons will be supported later");
+            Polygon polygon = poly.getPolygon();
+            Rectangle bounds = polygon.getBoundingRectangle();
+            checkBounds(obj.getName(), bounds);
+            for (int xx = (int) bounds.x + 1; xx < bounds.x + bounds.width; xx += TILE_SIZE) {
+                int x = xx / TILE_SIZE;
+                for (int yy = (int) bounds.y + 1; yy < bounds.y + bounds.height; yy += TILE_SIZE) {
+                    int y = map.getMapHeight() - 1 - yy / TILE_SIZE;
+                    if (polygon.contains(xx, yy)) {
+                        result.add(map.pos(x, y));
+                    }
+                }
+            }
+            return result;
         }
         if (obj instanceof RectangleMapObject) {
             RectangleMapObject rect = (RectangleMapObject) obj;
             Rectangle bounds = rect.getRectangle();
-            checkMod(obj.getName(), bounds.x, TILE_SIZE);
-            checkMod(obj.getName(), bounds.y, TILE_SIZE);
-            checkMod(obj.getName(), bounds.width, TILE_SIZE);
-            checkMod(obj.getName(), bounds.height, TILE_SIZE);
+            checkBounds(obj.getName(), bounds);
             for (int xx = (int) bounds.x; xx < bounds.x + bounds.width; xx += TILE_SIZE) {
                 int x = xx / TILE_SIZE;
                 for (int yy = (int) bounds.y; yy < bounds.y + bounds.height; yy += TILE_SIZE) {
@@ -105,6 +112,13 @@ public class MapLoader {
             return result;
         }
         throw new RuntimeException("Unsupported MapObject class: " + obj + " only Polygon and Rectangle are supported");
+    }
+
+    private void checkBounds(String name, Rectangle bounds) {
+        checkMod(name, bounds.x, TILE_SIZE);
+        checkMod(name, bounds.y, TILE_SIZE);
+        checkMod(name, bounds.width, TILE_SIZE);
+        checkMod(name, bounds.height, TILE_SIZE);
     }
 
     private void checkMod(String name, float value, int mod) {
