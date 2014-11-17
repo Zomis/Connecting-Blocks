@@ -116,6 +116,14 @@ public class MapLoader {
                 int maxSize = (Integer) combinedProperties.get("maxSize");
                 strategies.add(new RequiredConnection((Integer) ee.getValue(), maxSize));
             }
+            if (key.equals("requiredColor")) {
+                // to
+                strategies.add(new RequiredColor(intValue(ee.getValue())));
+            }
+            if (key.equals("deniedColor")) {
+                // to
+                strategies.add(new DeniedColor(intValue(ee.getValue())));
+            }
         }
 
         MoveStrategy strategy;
@@ -136,6 +144,10 @@ public class MapLoader {
         }
         ConnBlocks.log("Strategy on " + tile + ": " + strategy);
         tile.setMoveStrategyTo(strategy);
+    }
+
+    private int intValue(Object value) {
+        return Integer.parseInt(String.valueOf(value));
     }
 
     private Map<String, Object> combinedProperties(MapProperties... properties) {
