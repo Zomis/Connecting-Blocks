@@ -1,4 +1,4 @@
-package net.zomis.connblocks;
+package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.PinchZoomer;
 import net.zomis.connblocks.gdx.*;
 import net.zomis.connblocks.levels.BlockLevelSet;
 import net.zomis.connblocks.levels.TestPack;

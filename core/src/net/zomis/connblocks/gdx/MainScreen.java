@@ -3,7 +3,6 @@ package net.zomis.connblocks.gdx;
 import com.badlogic.gdx.Screen;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.ConnectingBlocks;
-import net.zomis.connblocks.ConnectingGame;
 import net.zomis.connblocks.events.ConnectionAddedEvent;
 import net.zomis.connblocks.events.ConnectionMergeEvent;
 import net.zomis.connblocks.levels.BlockLevelSet;

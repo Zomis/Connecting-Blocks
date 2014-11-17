@@ -5,14 +5,10 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import net.zomis.ConnBlocks;
 import net.zomis.IntPoint;
 import net.zomis.connblocks.Block;
-import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.ConnectingBlocks;
-import net.zomis.connblocks.ConnectingGame;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;

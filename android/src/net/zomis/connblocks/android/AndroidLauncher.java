@@ -6,7 +6,7 @@ import android.util.Base64;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import net.zomis.connblocks.BlockMap;
-import net.zomis.connblocks.ConnectingGame;
+import net.zomis.connblocks.gdx.ConnectingGame;
 import net.zomis.connblocks.gdx.GameHelper;
 
 import java.io.IOException;

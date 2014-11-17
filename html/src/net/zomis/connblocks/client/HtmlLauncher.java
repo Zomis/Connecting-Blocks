@@ -3,7 +3,7 @@ package net.zomis.connblocks.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import net.zomis.connblocks.ConnectingGame;
+import net.zomis.connblocks.gdx.ConnectingGame;
 
 public class HtmlLauncher extends GwtApplication {
 
