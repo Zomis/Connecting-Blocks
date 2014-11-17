@@ -15,10 +15,10 @@ import net.zomis.ConnBlocks;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.BlockTile;
 import net.zomis.connblocks.BlockType;
+import net.zomis.connblocks.MoveStrategy;
+import net.zomis.connblocks.move.*;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Zomis on 2014-11-16.
@@ -64,7 +64,93 @@ public class MapLoader {
     }
 
     private void loadSpecials(TiledMap tiled, BlockMap result, MapLayer layer) {
+        Iterator<MapObject> it = layer.getObjects().iterator();
+        while (it.hasNext()) {
+            MapObject obj = it.next();
+            Set<BlockTile> blocks = tilesForObject(result, obj);
+            for (BlockTile tile : blocks) {
+                setupSpecial(tile, obj, layer);
+            }
+        }
+    }
 
+    private void setupSpecial(BlockTile tile, MapObject obj, MapLayer layer) {
+        List<MoveStrategy> strategies = new ArrayList<MoveStrategy>();
+        Map<String, Object> combinedProperties = combinedProperties(obj.getProperties(), layer.getProperties());
+        int limit = -1;
+        for (Map.Entry<String, Object> ee : combinedProperties.entrySet()) {
+            String key = ee.getKey();
+            if (key.equals("blockBreak")) {
+                // to
+                strategies.add(new BlockBreaker());
+            }
+            if (key.equals("blockCreator")) {
+                // to
+                strategies.add(new BlockCreator());
+            }
+            if (key.equals("blockLink")) {
+                // correct strategies are setup in constructor
+                throw new UnsupportedOperationException(key + " not supported yet");
+            }
+            if (key.equals("modifier")) {
+                // to
+                strategies.add(new ConnectModifier());
+            }
+            if (key.equals("areaExecute")) {
+                // to
+                throw new UnsupportedOperationException(key + " not supported yet");
+            }
+            if (key.equals("forward")) {
+                // to
+                strategies.add(new ForwardMover());
+            }
+            if (key.equals("denyDirections")) {
+                // to or from
+            }
+            if (key.equals("usageCount")) {
+                // to or from
+                limit = (Integer) ee.getValue();
+            }
+            if (key.equals("noForward")) {
+                // to *and* from, setup in constructor
+            }
+            if (key.equals("minSize")) {
+                // to
+                int maxSize = (Integer) combinedProperties.get("maxSize");
+                strategies.add(new RequiredConnection((Integer) ee.getValue(), maxSize));
+            }
+        }
+
+        MoveStrategy strategy;
+        if (strategies.size() > 1) {
+            ConnBlocks.log(strategies.size() + " strategies on " + tile + ": " + strategies);
+            Iterator<MoveStrategy> it = strategies.iterator();
+            strategy = it.next();
+            while (it.hasNext()) {
+                strategy = new CombinedMoveStrategy(strategy, it.next());
+            }
+        }
+        else {
+            strategy = strategies.get(0);
+        }
+
+        if (limit > 0) {
+            strategy = new LimitedUses(strategy, limit);
+        }
+        ConnBlocks.log("Strategy on " + tile + ": " + strategy);
+        tile.setMoveStrategyTo(strategy);
+    }
+
+    private Map<String, Object> combinedProperties(MapProperties... properties) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (MapProperties prop : properties) {
+            Iterator<String> keys = prop.getKeys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                result.put(key, prop.get(key));
+            }
+        }
+        return result;
     }
 
     private void loadConnections(TiledMap tiled, BlockMap result, MapLayer layer) {
