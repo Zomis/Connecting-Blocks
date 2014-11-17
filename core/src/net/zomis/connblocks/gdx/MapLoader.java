@@ -47,9 +47,6 @@ public class MapLoader {
         while (layers.hasNext()) {
             loadLayer(tiled, map, layers.next());
         }
-
-
-        map.pos(1, 1).setType(BlockType.GOAL);
         tiled.dispose();
         return map;
     }
@@ -128,7 +125,23 @@ public class MapLoader {
     }
 
     private void loadMapLayer(TiledMap tiled, BlockMap result, TiledMapTileLayer layer) {
-
+        BlockType[] blockTypes = BlockType.values();
+        int height = result.getMapHeight();
+        for (int x = 0; x < result.getMapWidth(); x++) {
+            for (int y = 0; y < result.getMapHeight(); y++) {
+                int blocksMapY = height - 1 - y;
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell == null || cell.getTile() == null) {
+                    result.pos(x, blocksMapY).setType(null);
+                    continue;
+                }
+                int id = cell.getTile().getId();
+                if (id >= blockTypes.length) {
+                    throw new RuntimeException("Tile id out of range: " + id + " at pos " + x + ", " + y);
+                }
+                result.pos(x, blocksMapY).setType(blockTypes[id]);
+            }
+        }
     }
 
     private void checkValue(Object properties, String key, String expected) {
