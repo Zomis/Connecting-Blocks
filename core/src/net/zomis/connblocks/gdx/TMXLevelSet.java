@@ -1,6 +1,5 @@
 package net.zomis.connblocks.gdx;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.levels.BlockLevelSet;
@@ -14,7 +13,7 @@ public class TMXLevelSet implements BlockLevelSet {
     private final FileHandle directory;
 
     public TMXLevelSet(FileHandle directory) {
-        if (!directory.exists() || !directory.isDirectory()) {
+        if (!directory.exists()) {
             throw new IllegalArgumentException(directory + " is not a valid levelset directory");
         }
         this.name = directory.name();

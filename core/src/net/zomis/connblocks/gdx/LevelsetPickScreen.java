@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import net.zomis.ConnBlocks;
 import net.zomis.connblocks.levels.BlockLevelSet;
 import net.zomis.connblocks.levels.RealPack;
 import net.zomis.connblocks.levels.TestPack;
@@ -38,7 +39,9 @@ public class LevelsetPickScreen implements Screen {
     }
 
     private void scanLevels(FileHandle directory) {
-        if (!directory.isDirectory() || !directory.exists()) {
+        ConnBlocks.log("Scanning directory " + directory);
+        if (!directory.exists()) {
+            ConnBlocks.log(directory.file().getAbsolutePath() + " does not exist.");
             return;
         }
 
