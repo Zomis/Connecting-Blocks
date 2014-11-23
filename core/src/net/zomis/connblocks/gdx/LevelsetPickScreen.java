@@ -35,6 +35,7 @@ public class LevelsetPickScreen implements Screen {
         if (Gdx.files.isExternalStorageAvailable()) {
             FileHandle external = Gdx.files.external("connBlocks/levels/");
             scanLevels(external);
+            external.mkdirs();
         }
     }
 
