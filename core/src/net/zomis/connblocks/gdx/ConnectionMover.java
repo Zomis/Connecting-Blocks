@@ -51,27 +51,6 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
         return false;
     }
 
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        if (connection != null) {
-            BlockMap map = connection.getMap();
-
-            Direction4 dir;
-            if (Math.abs(velocityX) > Math.abs(velocityY)) {
-                dir = Direction4.direction(0, 0, (int) Math.signum(velocityX), 0);
-            }
-            else {
-                dir = Direction4.direction(0, 0, 0, (int) Math.signum(velocityY));
-            }
-            ConnBlocks.log("Dir move " + dir + ": " + velocityX + ", " + velocityY);
-            if (dir == null) {
-                return false;
-            }
-            move(dir);
-        }
-        return true;
-    }
-
     private void move(Direction4 dir) {
         if (mapFinished) {
             return;
