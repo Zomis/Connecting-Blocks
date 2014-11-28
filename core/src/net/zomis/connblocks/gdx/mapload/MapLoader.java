@@ -78,43 +78,37 @@ public class MapLoader {
 
     private void loadSpecials(BlockMap result, MapLayer layer) {
         Iterator<MapObject> it = layer.getObjects().iterator();
-        int blockLink = -1;
-        BlockTile blockLinkTile = null;
+        Map<String, BlockTile> blockLinks = new HashMap<String, BlockTile>();
         while (it.hasNext()) {
             MapObject obj = it.next();
             Set<BlockTile> blocks = tilesForObject(result, obj);
             for (BlockTile tile : blocks) {
-                int bl = setupSpecial(tile, obj, layer);
-                if (bl != -1) {
+                String bl = setupSpecial(tile, obj, layer);
+                if (bl != null) {
                     if (blocks.size() != 1) {
                         throw new MapLoadingException("Map Object `blockLink` with more than one block are not yet supported");
                     }
-                    if (blockLink == -1) {
-                        blockLink = bl;
-                        blockLinkTile = tile;
-                    }
-                    else if (blockLink == bl) {
-                        new BlockLink(blockLinkTile, tile);
-                        blockLink = -1;
-                        blockLinkTile = null;
+                    BlockTile blockLinkTile = blockLinks.get(bl);
+                    if (blockLinkTile == null) {
+                        blockLinks.put(bl, tile);
                     }
                     else {
-                        throw new MapLoadingException("Too many `blockLink` on the same layer. Searched for " + blockLink +
-                            " but found " + bl);
+                        new BlockLink(blockLinkTile, tile);
+                        blockLinks.remove(bl);
                     }
                 }
             }
         }
-        if (blockLink != -1) {
-            throw new MapLoadingException("`blockLink` not closed: " + blockLink);
+        if (!blockLinks.isEmpty()) {
+            throw new MapLoadingException("`blockLink` not closed: " + blockLinks);
         }
     }
 
-    private int setupSpecial(BlockTile tile, MapObject obj, MapLayer layer) {
+    private String setupSpecial(BlockTile tile, MapObject obj, MapLayer layer) {
         List<MoveStrategy> strategies = new ArrayList<MoveStrategy>();
         Map<String, Object> combinedProperties = combinedProperties(obj.getProperties(), layer.getProperties());
         int limit = -1;
-        int blockLink = -1;
+        String blockLink = null;
         for (Map.Entry<String, Object> ee : combinedProperties.entrySet()) {
             String key = ee.getKey();
             if (key.equals("blockBreak")) {
@@ -127,7 +121,7 @@ public class MapLoader {
             }
             if (key.equals("blockLink")) {
                 // correct strategies are setup in constructor
-                blockLink = intValue(ee.getValue());
+                blockLink = String.valueOf(ee.getValue());
             }
             if (key.equals("modifier")) {
                 // to
@@ -175,8 +169,8 @@ public class MapLoader {
         }
 
         if (strategies.isEmpty()) {
-            if (blockLink == -1) {
-                throw new MapLoadingException("Useless Map Object: " + tile);
+            if (blockLink == null) {
+                throw new MapLoadingException("Map Object with no valid properties: " + tile);
             }
             return blockLink;
         }
