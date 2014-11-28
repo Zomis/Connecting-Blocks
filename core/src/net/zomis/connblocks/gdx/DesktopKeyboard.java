@@ -73,14 +73,11 @@ public class DesktopKeyboard extends InputAdapter {
 
     private void direction(Direction4 direction) {
         if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
-            // Pan camera
-            int step = 4;
-//            game.camera.translate(direction.getDeltaX() * step, direction.getDeltaY() * step);
+            return;
         }
-        else {
-            // Move connection
-            game.getConnectionMover().move(direction);
-        }
+
+        // Move connection
+        game.getConnectionMover().move(direction);
     }
 
     public void checkInputs() {
