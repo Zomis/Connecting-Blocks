@@ -42,6 +42,7 @@ public class ConnectingGame extends Game {
     private CheckBox panMode;
     private Texture bg;
     private ConnectionMover connectionMover;
+    private final DesktopKeyboard desktopKeyboard = new DesktopKeyboard(this);
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -84,6 +85,7 @@ public class ConnectingGame extends Game {
             }
         });
         inputHandler.addProcessor(new GestureDetector(connectionMover));
+        inputHandler.addProcessor(desktopKeyboard);
         Gdx.input.setInputProcessor(inputHandler);
 
         setScreen(new LevelsetPickScreen(this));
@@ -142,6 +144,7 @@ public class ConnectingGame extends Game {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        desktopKeyboard.checkInputs();
         camera.update();
         hudCamera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -169,5 +172,13 @@ public class ConnectingGame extends Game {
         levelset = levelSet;
         mainScreen = new MainScreen(this, connectionMover, levelSet);
         setScreen(mainScreen);
+    }
+
+    public ConnectionMover getConnectionMover() {
+        return connectionMover;
+    }
+
+    public MainScreen getMainScreen() {
+        return mainScreen;
     }
 }

@@ -51,7 +51,7 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
         return false;
     }
 
-    private void move(Direction4 dir) {
+    public void move(Direction4 dir) {
         if (mapFinished) {
             return;
         }
