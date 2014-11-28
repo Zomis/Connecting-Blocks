@@ -20,7 +20,7 @@ public class DesktopKeyboard extends InputAdapter {
     }
 
     @Override
-    public boolean keyUp(int keycode) {
+    public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.TAB:
                 nextConnection();
