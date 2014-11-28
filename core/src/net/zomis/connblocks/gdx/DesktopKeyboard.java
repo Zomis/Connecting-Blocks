@@ -26,10 +26,10 @@ public class DesktopKeyboard extends InputAdapter {
                 nextConnection();
                 break;
             case Input.Keys.PLUS:
-                game.camera.zoom += 0.1f;
+                game.camera.zoom -= 0.1f;
                 break;
             case Input.Keys.MINUS:
-                game.camera.zoom -= 0.1f;
+                game.camera.zoom += 0.1f;
                 break;
             case Input.Keys.UP:
                 direction(Direction4.UP);
