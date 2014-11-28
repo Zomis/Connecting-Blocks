@@ -2,6 +2,7 @@ package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -80,6 +81,7 @@ public class ConnectingGame extends Game {
                         nextLevel();
                     }
                 };
+                dialog.key(Input.Keys.ENTER, true);
                 dialog.button("OK", true);
                 dialog.show(hudStage);
             }
