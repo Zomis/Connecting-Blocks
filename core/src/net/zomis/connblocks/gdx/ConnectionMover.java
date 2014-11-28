@@ -55,7 +55,9 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
         if (mapFinished) {
             return;
         }
-
+        if (connection == null) {
+            return;
+        }
         BlockMap map = connection.getMap();
         map.stateBasedEffects();
         connection.move(dir);
