@@ -71,7 +71,7 @@ public class MapLoader {
                 int bl = setupSpecial(tile, obj, layer);
                 if (bl != -1) {
                     if (blocks.size() != 1) {
-                        throw new RuntimeException("Map Object `blockLink` with more than one block are not yet supported");
+                        throw new MapLoadingException("Map Object `blockLink` with more than one block are not yet supported");
                     }
                     if (blockLink == -1) {
                         blockLink = bl;
@@ -83,14 +83,14 @@ public class MapLoader {
                         blockLinkTile = null;
                     }
                     else {
-                        throw new RuntimeException("Too many `blockLink` on the same layer. Searched for " + blockLink +
+                        throw new MapLoadingException("Too many `blockLink` on the same layer. Searched for " + blockLink +
                             " but found " + bl);
                     }
                 }
             }
         }
         if (blockLink != -1) {
-            throw new RuntimeException("`blockLink` not closed: " + blockLink);
+            throw new MapLoadingException("`blockLink` not closed: " + blockLink);
         }
     }
 
@@ -119,7 +119,7 @@ public class MapLoader {
             }
             if (key.equals("areaExecute")) {
                 // to
-                throw new UnsupportedOperationException(key + " not supported yet");
+                throw new MapLoadingException(key + " not supported yet");
             }
             if (key.equals("forward")) {
                 // to
@@ -160,7 +160,7 @@ public class MapLoader {
 
         if (strategies.isEmpty()) {
             if (blockLink == -1) {
-                throw new RuntimeException("Useless Map Object: " + tile);
+                throw new MapLoadingException("Useless Map Object: " + tile);
             }
             return blockLink;
         }
@@ -236,7 +236,7 @@ public class MapLoader {
                     continue outer;
                 }
             }
-            throw new RuntimeException("Unknown property: " + key + " known is: " + Arrays.toString(knownProperties));
+            throw new MapLoadingException("Unknown property: " + key + " known is: " + Arrays.toString(knownProperties));
         }
     }
 
@@ -286,7 +286,7 @@ public class MapLoader {
 
             return result;
         }
-        throw new RuntimeException("Unsupported MapObject class: " + obj + " only Polygon and Rectangle are supported");
+        throw new MapLoadingException("Unsupported MapObject class: " + obj + " only Polygon and Rectangle are supported");
     }
 
     private void checkBounds(String name, Rectangle bounds) {
@@ -298,7 +298,7 @@ public class MapLoader {
 
     private void checkMod(String name, float value, int mod) {
         if (value % mod != 0) {
-            throw new RuntimeException("Invalid value for '" + name + "': Expected divisibilty by " + mod + " but was " + value);
+            throw new MapLoadingException("Invalid value for '" + name + "': Expected divisibilty by " + mod + " but was " + value);
         }
     }
 
@@ -315,7 +315,7 @@ public class MapLoader {
                 }
                 int id = cell.getTile().getId();
                 if (id >= blockTypes.length) {
-                    throw new RuntimeException("Tile id out of range: " + id + " at pos " + x + ", " + y);
+                    throw new MapLoadingException("Tile id out of range: " + id + " at pos " + x + ", " + y);
                 }
                 result.pos(x, blocksMapY).setType(blockTypes[id]);
             }
@@ -329,12 +329,12 @@ public class MapLoader {
             check(key, actual, expected);
             return;
         }
-        throw new UnsupportedOperationException("Unsupported properties: " + properties);
+        throw new MapLoadingException("Unsupported properties: " + properties);
     }
 
     private void check(String key, String actual, String expected) {
         if (!expected.equals(actual)) {
-            throw new RuntimeException("Invalid value for '" + key + "': Expected " + expected + " but was " + actual);
+            throw new MapLoadingException("Invalid value for '" + key + "': Expected " + expected + " but was " + actual);
         }
     }
 
