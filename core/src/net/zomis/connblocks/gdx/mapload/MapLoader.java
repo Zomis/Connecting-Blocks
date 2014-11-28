@@ -44,8 +44,24 @@ public class MapLoader {
         while (layers.hasNext()) {
             loadLayer(map, layers.next());
         }
+        checkMapBorder(map, 0, 0, Direction4.RIGHT);
+        checkMapBorder(map, 0, 0, Direction4.DOWN);
+        checkMapBorder(map, 0, map.getMapHeight() - 1, Direction4.RIGHT);
+        checkMapBorder(map, map.getMapWidth() - 1, 0, Direction4.DOWN);
         tiled.dispose();
         return map;
+    }
+
+    private void checkMapBorder(BlockMap map, int startX, int startY, Direction4 direction) {
+        while (map.pos(startX, startY) != null) {
+            BlockTile pos = map.pos(startX, startY);
+            if (pos.getType() != BlockType.IMPASSABLE) {
+                throw new MapLoadingException("Map must be surrounded by impassable wall. " +
+                        startX + ", " + startY + " is not wall.");
+            }
+            startX += direction.getDeltaX();
+            startY += direction.getDeltaY();
+        }
     }
 
     private void loadLayer(BlockMap result, MapLayer layer) {
