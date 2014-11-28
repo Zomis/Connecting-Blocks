@@ -46,6 +46,9 @@ public class ConnectingGame extends Game {
     private Texture bg;
     private ConnectionMover connectionMover;
     private final DesktopKeyboard desktopKeyboard = new DesktopKeyboard(this);
+    private Label levelInfoLabel;
+    private Label authorLabel;
+    private Label levelNameLabel;
 
     public ConnectingGame(GameHelper helper) {
         this.helper = helper;
@@ -94,8 +97,17 @@ public class ConnectingGame extends Game {
 
         setScreen(new LevelsetPickScreen(this));
 
+        Table levelInfoTable = new Table();
+        levelInfoTable.setFillParent(true);
+        levelInfoTable.top().left();
+        levelInfoLabel = new Label("level", skin);
+        levelInfoTable.add(levelInfoLabel).left().row();
+        authorLabel = new Label("Author", skin);
+        levelInfoTable.add(authorLabel).left().row();
+        levelNameLabel = new Label("Level Name", skin);
+        levelInfoTable.add(levelNameLabel).left().row();
+
         Table table = new Table();
-        table.setDebug(true);
         table.setFillParent(true);
         table.bottom();
 
@@ -126,9 +138,8 @@ public class ConnectingGame extends Game {
             }
         });
 
+        hudStage.addActor(levelInfoTable);
         hudStage.addActor(table);
-
-
     }
 
     private void nextLevel() {
@@ -165,6 +176,7 @@ public class ConnectingGame extends Game {
     }
 
     public BlockMap loadLevel(BlockLevelSet levelSet, int level) {
+        levelInfoLabel.setText(levelSet.getLevelSetName() + " - Level " + (level + 1));
         try {
             BlockMap map = levelset.getLevel(level);
             if (map == null) {
