@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.PinchZoomer;
+import net.zomis.connblocks.gdx.mapload.TMXLevelSet;
 import net.zomis.connblocks.levels.BlockLevelSet;
 
 public class ConnectingGame extends Game {

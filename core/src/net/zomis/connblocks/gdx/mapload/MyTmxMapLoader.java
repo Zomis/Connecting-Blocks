@@ -1,4 +1,4 @@
-package net.zomis.connblocks.gdx;
+package net.zomis.connblocks.gdx.mapload;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

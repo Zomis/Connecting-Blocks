@@ -1,7 +1,8 @@
-package net.zomis.connblocks.gdx;
+package net.zomis.connblocks.gdx.mapload;
 
 import com.badlogic.gdx.files.FileHandle;
 import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.gdx.mapload.MapLoader;
 import net.zomis.connblocks.levels.BlockLevelSet;
 
 /**
