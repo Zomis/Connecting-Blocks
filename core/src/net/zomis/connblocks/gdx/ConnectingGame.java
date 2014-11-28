@@ -18,7 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.BlockType;
 import net.zomis.connblocks.PinchZoomer;
+import net.zomis.connblocks.gdx.mapload.MapLoadingException;
 import net.zomis.connblocks.gdx.mapload.TMXLevelSet;
 import net.zomis.connblocks.levels.BlockLevelSet;
 
@@ -163,11 +165,30 @@ public class ConnectingGame extends Game {
     }
 
     public BlockMap loadLevel(BlockLevelSet levelSet, int level) {
-        BlockMap map = levelset.getLevel(level);
-        if (map == null) {
-            return helper.loadLevel(levelSet.getLevelData(level));
+        try {
+            BlockMap map = levelset.getLevel(level);
+            if (map == null) {
+                return helper.loadLevel(levelSet.getLevelData(level));
+            }
+            return map;
         }
-        return map;
+        catch (RuntimeException ex) {
+            Dialog dialog = new Dialog("Error loading map", skin);
+            dialog.text(ex.getMessage());
+            dialog.button("OK", true);
+            dialog.key(Input.Keys.ENTER, true);
+            dialog.show(hudStage);
+            if (mainScreen != null) {
+                return mainScreen.getMap();
+            }
+            BlockMap errorMap = new BlockMap(10, 4);
+            errorMap.addConnection(errorMap.pos(1, 1));
+            errorMap.pos(8, 1).setType(BlockType.GOAL);
+            errorMap.pos(8, 2).setType(BlockType.GOAL);
+            errorMap.pos(7, 1).setType(BlockType.IMPASSABLE);
+            errorMap.pos(7, 2).setType(BlockType.IMPASSABLE);
+            return errorMap;
+        }
     }
 
     public void loadLevelset(BlockLevelSet levelSet) {
