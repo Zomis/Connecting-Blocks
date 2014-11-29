@@ -2,7 +2,7 @@ package net.zomis.connblocks.areas;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import net.zomis.IntPoint;
+import net.zomis.connblocks.IntPoint;
 import net.zomis.connblocks.*;
 
 import java.util.HashMap;

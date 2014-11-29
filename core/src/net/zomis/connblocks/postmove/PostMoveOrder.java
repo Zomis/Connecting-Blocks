@@ -1,6 +1,6 @@
 package net.zomis.connblocks.postmove;
 
-import net.zomis.Direction4;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.MoveOrder;
 import net.zomis.connblocks.PostMoveAction;

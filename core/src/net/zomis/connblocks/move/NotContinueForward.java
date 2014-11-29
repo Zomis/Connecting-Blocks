@@ -1,7 +1,7 @@
 package net.zomis.connblocks.move;
 
 import com.fasterxml.jackson.annotation.*;
-import net.zomis.Direction4;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.*;
 import net.zomis.custommap.CustomFacade;
 

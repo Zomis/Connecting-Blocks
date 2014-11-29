@@ -180,7 +180,10 @@ public class ConnectingGame extends Game {
         try {
             BlockMap map = levelset.getLevel(level);
             if (map == null) {
-                return helper.loadLevel(levelSet.getLevelData(level));
+                map = helper.loadLevel(levelSet.getLevelData(level));
+                if (map == null) {
+                    throw new RuntimeException("Incompatible Levelset and platform");
+                }
             }
             return map;
         }

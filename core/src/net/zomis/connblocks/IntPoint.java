@@ -1,4 +1,4 @@
-package net.zomis;
+package net.zomis.connblocks;
 
 public class IntPoint {
     protected int x;

@@ -1,6 +1,6 @@
 package net.zomis.connblocks.events;
 
-import net.zomis.Direction4;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.MoveOrder;
 
 public class ConnectionMovedEvent extends ConnectionEvent {

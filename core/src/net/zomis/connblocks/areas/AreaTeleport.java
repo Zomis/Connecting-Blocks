@@ -1,6 +1,6 @@
 package net.zomis.connblocks.areas;
 
-import net.zomis.IntPoint;
+import net.zomis.connblocks.IntPoint;
 import net.zomis.connblocks.*;
 
 public class AreaTeleport implements AreaStrategy {

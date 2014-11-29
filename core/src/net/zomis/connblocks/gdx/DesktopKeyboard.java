@@ -3,8 +3,7 @@ package net.zomis.connblocks.gdx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-import net.zomis.Direction4;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.ConnectingBlocks;
 
 import java.util.Iterator;

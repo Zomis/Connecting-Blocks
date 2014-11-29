@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import net.zomis.Direction4;
-import net.zomis.IntPoint;
+import net.zomis.connblocks.Direction4;
+import net.zomis.connblocks.IntPoint;
 import net.zomis.connblocks.*;
 import net.zomis.custommap.CustomFacade;
 

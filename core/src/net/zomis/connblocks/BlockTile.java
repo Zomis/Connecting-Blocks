@@ -1,9 +1,6 @@
 package net.zomis.connblocks;
 
 import com.fasterxml.jackson.annotation.*;
-import net.zomis.ConnBlocks;
-import net.zomis.Direction4;
-import net.zomis.IntPoint;
 import net.zomis.custommap.model.GenericTileModel;
 
 import java.util.HashSet;

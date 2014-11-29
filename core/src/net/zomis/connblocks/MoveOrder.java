@@ -1,7 +1,5 @@
 package net.zomis.connblocks;
 
-import net.zomis.Direction4;
-import net.zomis.IntPoint;
 import net.zomis.custommap.CustomFacade;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package net.zomis;
+package net.zomis.connblocks;
 
 import com.badlogic.gdx.Gdx;
 

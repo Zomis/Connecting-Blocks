@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import net.zomis.ConnBlocks;
+import net.zomis.connblocks.ConnBlocks;
 import net.zomis.connblocks.gdx.mapload.TMXLevelSet;
 import net.zomis.connblocks.levels.BlockLevelSet;
 import net.zomis.connblocks.levels.RealPack;

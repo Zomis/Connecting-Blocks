@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import net.zomis.ConnBlocks;
-import net.zomis.IntPoint;
+import net.zomis.connblocks.ConnBlocks;
+import net.zomis.connblocks.IntPoint;
 import net.zomis.connblocks.*;
 
 /**

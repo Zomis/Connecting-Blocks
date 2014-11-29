@@ -1,7 +1,7 @@
 package net.zomis.connblocks.move;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import net.zomis.Direction4;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.Block;
 import net.zomis.connblocks.BlockTile;
 import net.zomis.connblocks.MoveOrder;

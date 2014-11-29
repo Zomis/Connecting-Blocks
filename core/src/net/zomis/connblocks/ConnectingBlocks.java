@@ -2,8 +2,6 @@ package net.zomis.connblocks;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import net.zomis.ConnBlocks;
-import net.zomis.Direction4;
 import net.zomis.connblocks.events.ConnectionMovedEvent;
 import net.zomis.connblocks.postmove.PostMoveOrder;
 

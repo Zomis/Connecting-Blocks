@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import net.zomis.ConnBlocks;
 import net.zomis.connblocks.events.ConnectionAddedEvent;
 import net.zomis.connblocks.events.ConnectionMergeEvent;
 import net.zomis.connblocks.events.ConnectionRemovedEvent;

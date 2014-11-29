@@ -2,7 +2,7 @@ package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
-import net.zomis.ConnBlocks;
+import net.zomis.connblocks.ConnBlocks;
 import net.zomis.connblocks.*;
 
 public class ConnectionSelector extends InputAdapter {

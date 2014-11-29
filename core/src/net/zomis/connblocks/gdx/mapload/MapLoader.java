@@ -10,8 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import net.zomis.ConnBlocks;
-import net.zomis.Direction4;
+import net.zomis.connblocks.ConnBlocks;
+import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.*;
 import net.zomis.connblocks.move.*;
 
