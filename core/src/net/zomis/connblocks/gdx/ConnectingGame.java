@@ -146,8 +146,18 @@ public class ConnectingGame extends Game {
         mainScreen.setMap(loadLevel(levelset, level));
     }
 
-    private void nextLevel() {
+    public void nextLevel() {
         level++;
+        if (levelset.getLevelCount() > level) {
+            mainScreen.setMap(loadLevel(levelset, level));
+        }
+    }
+
+    public void previousLevel() {
+        if (level <= 0) {
+            return;
+        }
+        level--;
         if (levelset.getLevelCount() > level) {
             mainScreen.setMap(loadLevel(levelset, level));
         }
