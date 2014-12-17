@@ -142,6 +142,11 @@ public class ConnectingGame extends Game {
         hudStage.addActor(table);
     }
 
+    public void backToMenu() {
+        mainScreen = null;
+        setScreen(new LevelsetPickScreen(this));
+    }
+
     public void resetMap() {
         mainScreen.setMap(loadLevel(levelset, level));
     }

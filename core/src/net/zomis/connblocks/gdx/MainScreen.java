@@ -50,6 +50,10 @@ public class MainScreen implements Screen {
     @Override
     public void hide() {
         game.inputHandler.removeProcessor(this.inputHandler);
+        for (ConnectionActor actor : actors) {
+            actor.remove();
+        }
+        actors.clear();
     }
 
     @Override

@@ -33,6 +33,9 @@ public class DesktopKeyboard extends InputAdapter {
             case Input.Keys.N:
                 game.nextLevel();
                 break;
+            case Input.Keys.ESCAPE:
+                game.backToMenu();
+                break;
             case Input.Keys.PLUS:
                 game.camera.zoom -= 0.1f;
                 break;
