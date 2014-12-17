@@ -107,9 +107,13 @@ public class ConnectingBlocks implements Comparable<ConnectingBlocks> {
 		
 		if (this.farAway) {
 			// TODO: Animations for farAway. Don't move them here but let an outside controller take care of it?
+            if (this.connectToNeighbors()) {
+                return true;
+            }
 			PostMoveOrder post = new PostMoveOrder(this, order.getDirection());
-			if (!order.hasPostMoveAction(post))
-				order.addPostMoveAction(post);
+			if (!order.hasPostMoveAction(post)) {
+                order.addPostMoveAction(post);
+            }
 		}
 		return true;
 	}
