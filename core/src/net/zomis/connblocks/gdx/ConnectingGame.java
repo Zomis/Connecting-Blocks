@@ -116,7 +116,7 @@ public class ConnectingGame extends Game {
         reset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainScreen.setMap(loadLevel(levelset, level));
+                resetMap();
             }
         });
 
@@ -140,6 +140,10 @@ public class ConnectingGame extends Game {
 
         hudStage.addActor(levelInfoTable);
         hudStage.addActor(table);
+    }
+
+    public void resetMap() {
+        mainScreen.setMap(loadLevel(levelset, level));
     }
 
     private void nextLevel() {

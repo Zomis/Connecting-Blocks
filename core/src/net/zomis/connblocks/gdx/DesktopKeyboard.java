@@ -24,6 +24,9 @@ public class DesktopKeyboard extends InputAdapter {
             case Input.Keys.TAB:
                 nextConnection();
                 break;
+            case Input.Keys.R:
+                game.resetMap();
+                break;
             case Input.Keys.PLUS:
                 game.camera.zoom -= 0.1f;
                 break;
