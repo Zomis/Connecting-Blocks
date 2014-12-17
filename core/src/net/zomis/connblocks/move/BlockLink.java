@@ -65,7 +65,12 @@ public class BlockLink implements NeighborStrategy, MoveStrategy {
 		
 		Direction4 dir = order.getDirection();
 		order.setBlockTarget(block, new IntPoint(target.getX() + dir.getDeltaX(), target.getY() + dir.getDeltaY()));
-		
+		if (block.getEndSpot(order).getType() == BlockType.IMPASSABLE) {
+            return false;
+        }
+        if (block.getEndSpot(order).getMoveStrategyTo() instanceof BlockLink) {
+            return false;
+        }
 		return true;
 	}
 
