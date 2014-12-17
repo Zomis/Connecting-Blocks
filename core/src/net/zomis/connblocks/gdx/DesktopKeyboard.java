@@ -3,6 +3,7 @@ package net.zomis.connblocks.gdx;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import net.zomis.connblocks.ConnBlocks;
 import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.ConnectingBlocks;
 
@@ -20,6 +21,9 @@ public class DesktopKeyboard extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
+            return false;
+        }
         switch (keycode) {
             case Input.Keys.TAB:
                 nextConnection();
@@ -94,23 +98,23 @@ public class DesktopKeyboard extends InputAdapter {
     public void checkInputs() {
         if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)) {
             // Pan camera
-            Direction4 dir = null;
+            int deltaX = 0;
+            int deltaY = 0;
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                dir = Direction4.LEFT;
+                deltaX -= 1;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                dir = Direction4.UP;
+                deltaY -= 1;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                dir = Direction4.RIGHT;
+                deltaX += 1;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                dir = Direction4.DOWN;
+                deltaY += 1;
             }
             int step = 4;
-            if (dir != null) {
-                game.camera.translate(dir.getDeltaX() * step, dir.getDeltaY() * step);
-            }
+            ConnBlocks.log("pan " + deltaX + ", " + deltaY);
+            game.camera.translate(deltaX * step, deltaY * step);
         }
 
     }
