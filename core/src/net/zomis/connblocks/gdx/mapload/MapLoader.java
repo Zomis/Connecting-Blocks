@@ -108,6 +108,7 @@ public class MapLoader {
         List<MoveStrategy> strategies = new ArrayList<MoveStrategy>();
         Map<String, Object> combinedProperties = combinedProperties(obj.getProperties(), layer.getProperties());
         int limit = -1;
+        boolean strategyFound = false;
         String blockLink = null;
         for (Map.Entry<String, Object> ee : combinedProperties.entrySet()) {
             String key = ee.getKey();
@@ -152,6 +153,7 @@ public class MapLoader {
             if (key.equals("noForward")) {
                 // to *and* from, setup in constructor
                 new NotContinueForward(tile);
+                strategyFound = true;
             }
             if (key.equals("minSize")) {
                 // to
@@ -168,10 +170,14 @@ public class MapLoader {
             }
         }
 
-        if (strategies.isEmpty()) {
+        if (strategies.isEmpty() && !strategyFound) {
             if (blockLink == null) {
                 throw new MapLoadingException("Map Object with no valid properties: " + tile);
             }
+            return blockLink;
+        }
+
+        if (strategies.isEmpty() && strategyFound) {
             return blockLink;
         }
 
