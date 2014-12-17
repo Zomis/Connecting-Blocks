@@ -89,27 +89,9 @@ public class BlockMap extends GenericMapModel<BlockTile> {
 			connectionPerformed = false;
 			outer:
 			for (ConnectingBlocks conn : new TreeSet<ConnectingBlocks>(this.connections)) {
-				Set<ConnectingBlocks> conns = conn.getNeighborConnections();
-				for (ConnectingBlocks secondary : conns) {
-					if (!conn.canConnectTo(secondary))
-						continue;
-					if (secondary == conn)
-						continue;
-                    ConnBlocks.log("Merge " + conn + " with " + secondary);
-					merge(conn, secondary);
-					connectionPerformed = true;
-					break outer;
-				}
+                conn.connectToNeighbors();
 			}
 		}
-	}
-
-	private void merge(ConnectingBlocks primary, ConnectingBlocks secondary) {
-		if (primary == secondary)
-			throw new IllegalArgumentException();
-		primary.mergeWith(secondary);
-		getEventExecutor().executeEvent(new ConnectionMergeEvent(primary, secondary));
-		this.removeConnection(secondary); // this will call ConnectionRemovedEvent for secondary
 	}
 
 	public boolean checkForGoal() {

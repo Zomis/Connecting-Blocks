@@ -2,6 +2,7 @@ package net.zomis.connblocks;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import net.zomis.connblocks.events.ConnectionMergeEvent;
 import net.zomis.connblocks.events.ConnectionMovedEvent;
 import net.zomis.connblocks.postmove.PostMoveOrder;
 
@@ -301,4 +302,26 @@ public class ConnectingBlocks implements Comparable<ConnectingBlocks> {
 		return changed;
 	}
 	
+    public boolean connectToNeighbors() {
+        Set<ConnectingBlocks> conns = this.getNeighborConnections();
+        for (ConnectingBlocks secondary : conns) {
+            if (!this.canConnectTo(secondary))
+                continue;
+            if (secondary == this)
+                continue;
+            ConnBlocks.log("Merge " + this + " with " + secondary);
+            merge(this, secondary);
+            return true;
+        }
+        return false;
+    }
+
+    private void merge(ConnectingBlocks primary, ConnectingBlocks secondary) {
+        if (primary == secondary)
+            throw new IllegalArgumentException();
+        primary.mergeWith(secondary);
+        map.getEventExecutor().executeEvent(new ConnectionMergeEvent(primary, secondary));
+        map.removeConnection(secondary); // this will call ConnectionRemovedEvent for secondary
+    }
+
 }
