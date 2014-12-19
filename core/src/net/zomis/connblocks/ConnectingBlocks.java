@@ -172,6 +172,11 @@ public class ConnectingBlocks implements Comparable<ConnectingBlocks> {
 			block.connection = this;
 		other.blocks.clear();
 		this.connectGroups = this.connectGroups | other.connectGroups;
+        this.pushable = this.pushable | other.pushable;
+        this.pusher = this.pusher | other.pusher;
+        this.controllable = this.controllable | other.controllable;
+        this.farAway = this.farAway | other.farAway;
+        this.allowBroken = this.allowBroken | other.allowBroken;
 	}
 	
 	@Override
