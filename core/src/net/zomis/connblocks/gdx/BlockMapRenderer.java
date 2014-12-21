@@ -55,44 +55,39 @@ public class BlockMapRenderer {
             for (int y = 0; y < game.getMapHeight(); y++) {
                 BlockTile tile = game.pos(x, y);
                 BlockType type = tile.getType();
-
                 TextureRegion texture = textureFor(type);
                 if (texture != null) {
                     batch.draw(texture, x * size, y * size, size, size);
                 }
-
-
-
             }
         }
         batch.end();
 
-/*        for (int x = 0; x < game.getMapWidth(); x++) {
+        shape.begin();
+        shape.setColor(Color.LIGHT_GRAY);
+        shape.set(ShapeRenderer.ShapeType.Filled);
+        for (int x = 0; x < game.getMapWidth(); x++) {
             for (int y = 0; y < game.getMapHeight(); y++) {
                 BlockTile tile = game.pos(x, y);
                 BlockType type = tile.getType();
-                TextureRegion texture = textureFor(type);
-                shape.begin();
-                if (texture != null) {
-                    batch.draw(texture, x * size, y * size, size, size);
-                }
-                else {
-                    shape.setColor(colorFor(type));
+                if (type == null) {
                     shape.rect(x * size, y * size, size, size);
                 }
-                if (tile.getMoveStrategyFrom() != null || tile.getMoveStrategyTo() != null) {
-                    shape.set(ShapeRenderer.ShapeType.Filled);
-                    float xdraw = x * size + OFFSET_SPECIAL;
-                    float ydraw = y * size + OFFSET_SPECIAL;
-//                    ConnBlocks.log("Special block for " + tile + " at " + xdraw + ", " + ydraw + " size " + SIZE_SPECIAL);
-                    shape.setColor(Color.CYAN);
-                    shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
-//                    batch.draw(specialBlock, xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
-                }
-                shape.end();
             }
         }
-        batch.end();*/
+
+        shape.setColor(Color.CYAN);
+        for (int x = 0; x < game.getMapWidth(); x++) {
+            for (int y = 0; y < game.getMapHeight(); y++) {
+                BlockTile tile = game.pos(x, y);
+                if (tile.getMoveStrategyFrom() != null || tile.getMoveStrategyTo() != null) {
+                    float xdraw = x * size + OFFSET_SPECIAL;
+                    float ydraw = y * size + OFFSET_SPECIAL;
+                    shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
+                }
+            }
+        }
+        shape.end();
     }
 
     private TextureRegion textureFor(BlockType type) {
