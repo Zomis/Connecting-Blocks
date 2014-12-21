@@ -23,4 +23,11 @@ public class CombinedMoveStrategy implements MoveStrategy {
 		return a.canMove(tile, block, order) && b.canMove(tile, block, order);
 	}
 
+    public MoveStrategy getA() {
+        return a;
+    }
+
+    public MoveStrategy getB() {
+        return b;
+    }
 }

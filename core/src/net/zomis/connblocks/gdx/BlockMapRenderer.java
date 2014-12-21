@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Matrix4;
 import net.zomis.connblocks.ConnBlocks;
 import net.zomis.connblocks.IntPoint;
 import net.zomis.connblocks.*;
+import net.zomis.connblocks.move.*;
 
 /**
  * Created by Zomis on 2014-11-12.
@@ -81,13 +82,81 @@ public class BlockMapRenderer {
             for (int y = 0; y < game.getMapHeight(); y++) {
                 BlockTile tile = game.pos(x, y);
                 if (tile.getMoveStrategyFrom() != null || tile.getMoveStrategyTo() != null) {
-                    float xdraw = x * size + OFFSET_SPECIAL;
-                    float ydraw = y * size + OFFSET_SPECIAL;
-                    shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
+                    drawSpecial(tile);
                 }
             }
         }
         shape.end();
+    }
+
+    private void drawSpecial(BlockTile tile) {
+        int x = tile.getX();
+        int y = tile.getY();
+
+        MoveStrategy from = tile.getMoveStrategyFrom();
+        MoveStrategy to = tile.getMoveStrategyTo();
+
+        drawSpecial(x, y, from);
+        drawSpecial(x, y, to);
+    }
+
+    private void drawSpecial(int x, int y, MoveStrategy strategy) {
+        if (strategy == null) {
+            return;
+        }
+
+        float xdraw = x * size + OFFSET_SPECIAL;
+        float ydraw = y * size + OFFSET_SPECIAL;
+
+        if (strategy instanceof CombinedMoveStrategy) {
+            CombinedMoveStrategy strat = (CombinedMoveStrategy) strategy;
+            drawSpecial(x, y, strat.getA());
+            drawSpecial(x, y, strat.getB());
+        }
+        if (strategy instanceof BlockBreaker) {
+            shape.setColor(Color.RED);
+        }
+        if (strategy instanceof BlockCreator) {
+            shape.setColor(Color.GREEN);
+        }
+        if (strategy instanceof AutoMover) {
+            shape.setColor(Color.CYAN);
+        }
+        if (strategy instanceof BlockLink) {
+            shape.setColor(Color.BLUE);
+        }
+        if (strategy instanceof ConnectModifier) {
+            shape.setColor(Color.PURPLE);
+        }
+        if (strategy instanceof DeniedColor) {
+            shape.setColor(Color.CYAN);
+        }
+        if (strategy instanceof ExecuteArea) {
+            shape.setColor(Color.CYAN);
+        }
+        if (strategy instanceof ForwardMover) {
+            shape.setColor(Color.BLACK);
+        }
+        if (strategy instanceof LimitedDirections) {
+            shape.setColor(Color.CYAN);
+        }
+        if (strategy instanceof LimitedUses) {
+            shape.setColor(Color.TEAL);
+            xdraw += 2;
+            ydraw += 2;
+        }
+        if (strategy instanceof NotContinueForward) {
+            shape.setColor(Color.CYAN);
+        }
+        if (strategy instanceof RequiredColor) {
+            shape.setColor(Color.BLACK);
+        }
+        if (strategy instanceof RequiredConnection) {
+            shape.setColor(Color.ORANGE);
+        }
+
+        shape.rect(xdraw, ydraw, SIZE_SPECIAL, SIZE_SPECIAL);
+
     }
 
     private TextureRegion textureFor(BlockType type) {
