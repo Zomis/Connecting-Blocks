@@ -34,7 +34,7 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-
+    compileTestJava.dependsOn tasks.getByPath(':core:test')
 
     dependencies {
         compile project(":core")
