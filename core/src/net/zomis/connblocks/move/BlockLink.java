@@ -56,22 +56,24 @@ public class BlockLink implements NeighborStrategy, MoveStrategy {
 
 	@Override
 	public boolean canMove(BlockTile tile, Block block, MoveOrder order) {
-		BlockTile target;
+		BlockTile linkDestination;
 		if (tile == pos)
-			target = pos2;
+			linkDestination = pos2;
 		else if (tile == pos2)
-			target = pos;
+			linkDestination = pos;
 		else throw new UnsupportedOperationException("Assertion Error. " + tile + block + order);
 		
 		Direction4 dir = order.getDirection();
-		order.setBlockTarget(block, new IntPoint(target.getX() + dir.getDeltaX(), target.getY() + dir.getDeltaY()));
-		if (block.getEndSpot(order).getType() == BlockType.IMPASSABLE) {
-            return false;
+        IntPoint blockTargetPos = new IntPoint(linkDestination.getX() + dir.getDeltaX(), linkDestination.getY() + dir.getDeltaY());
+        BlockTile blockTarget = block.getMap().pos(blockTargetPos.getX(), blockTargetPos.getY());
+        MoveStrategy toStrategy = blockTarget.getMoveStrategyTo();
+        order.setBlockTarget(block, blockTargetPos);
+
+        if (toStrategy != null) {
+            return toStrategy.canMove(blockTarget, block, order);
         }
-        if (block.getEndSpot(order).getMoveStrategyTo() instanceof BlockLink) {
-            return false;
-        }
-		return true;
+
+        return block.getEndSpot(order).getType() != BlockType.IMPASSABLE;
 	}
 
 	@Override
