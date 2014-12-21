@@ -128,6 +128,22 @@ public class MapLoader {
                 // to
                 strategies.add(new ConnectModifier());
             }
+            if (key.equals("move")) {
+                // to
+                String direction = String.valueOf(ee.getValue());
+                Direction4 dir = null;
+
+                if (direction.equals("L")) dir = Direction4.LEFT;
+                if (direction.equals("U")) dir = Direction4.UP;
+                if (direction.equals("R")) dir = Direction4.RIGHT;
+                if (direction.equals("D")) dir = Direction4.DOWN;
+
+                if (dir == null) {
+                    throw new MapLoadingException("Invalid move direction: " + direction);
+                }
+
+                strategies.add(new AutoMover(dir));
+            }
             if (key.equals("areaExecute")) {
                 // to
                 throw new MapLoadingException(key + " not supported yet");
