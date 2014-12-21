@@ -89,7 +89,7 @@ project(":html") {
 
 project(":core") {
     apply plugin: "java"
-
+    sourceSets.test.java.srcDirs = ["test/"]
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -97,6 +97,11 @@ project(":core") {
         compile "com.fasterxml.jackson.core:jackson-core:2.4.2"
         compile "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
         compile "net.zomis:commons:0.1"
+
+        testCompile "junit:junit:4.11"
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
 
