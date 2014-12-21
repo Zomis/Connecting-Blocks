@@ -1,6 +1,7 @@
 package net.zomis.connblocks.gdx;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import net.zomis.connblocks.BlockMap;
 import net.zomis.connblocks.ConnectingBlocks;
@@ -23,6 +24,7 @@ public class MainScreen implements Screen {
     private final ConnectingGame game;
     private final ConnectionMover mover;
     public final List<ConnectionActor> actors = new ArrayList<ConnectionActor>();
+    private final SpriteBatch myBatch = new SpriteBatch();
 
     public MainScreen(ConnectingGame game, ConnectionMover connectionMover, BlockLevelSet set) {
         this.game = game;
@@ -34,7 +36,8 @@ public class MainScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        renderer.render(game.batch, game.camera);
+
+        renderer.render(myBatch, game.camera);
     }
 
     @Override
