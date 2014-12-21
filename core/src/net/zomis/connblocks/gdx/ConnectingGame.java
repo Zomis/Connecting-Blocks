@@ -120,6 +120,15 @@ public class ConnectingGame extends Game {
             }
         });
 
+        TextButton backToMenu = new TextButton("Back", skin);
+        table.add(backToMenu).expandX().left().bottom();
+        backToMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                backToMenu();
+            }
+        });
+
         TextButton nextLevel = new TextButton("NEXT!", skin);
         table.add(nextLevel).expandX().left().bottom();
         nextLevel.addListener(new ClickListener() {
