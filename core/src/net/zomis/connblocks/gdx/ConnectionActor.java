@@ -26,7 +26,7 @@ public class ConnectionActor extends Actor {
     }
 
     private static final Color[] connectColors = new Color[] { Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW,
-            Color.CYAN, Color.ORANGE,
+            Color.CYAN, Color.ORANGE, Color.TEAL, Color.PURPLE
 //            0xffFF7F00, 0xffBFFF00, 0xff0095FF, 0xffFF00AA, 0xffFFD400, 0xffEDB9B9, 0xffEDB9B9, 0xffE7E9B9,
             //          0xffDCB9ED, 0xffB9EDE0, 0xff8F2323, 0xff23628F, 0xff8F6A23, 0xff6B238F, 0xff4F8F23, 0xff737373, 0xffCCCCCC,
             //        0xffff8000, 0xff7700dd, 0xff00ffff, 0xffffaec4
