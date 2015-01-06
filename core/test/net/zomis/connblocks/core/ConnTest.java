@@ -24,10 +24,20 @@ public class ConnTest extends MoveTest {
     }
 
     @Test
-    public void test() {
-        BlockMap map = loadMap("test.tmx");
-        assertNotNull(map);
-        assertEquals(2, map.getConnections().size());
+    public void breakLink() {
+        loadMap("break-link.tmx");
+        assertEquals(3, connectionByColor(2).getBlocksSize());
+        conn().move(DOWN);
+        conn().move(DOWN);
+        assertEquals(2, connectionByColor(2).getBlocksSize());
+        conn().move(DOWN);
+        conn().move(DOWN);
+        conn().move(DOWN);
+        conn().move(DOWN);
+        conn().move(DOWN);
+        assertFalse(map.checkForGoal());
+        conn().move(DOWN);
+        assertTrue(map.checkForGoal());
     }
 
     @Test

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="author" value="Etrisa"/>
+  <property name="name" value="break after passing through link"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../tiles.png" width="128" height="32"/>
+ </tileset>
+ <layer name="map" width="16" height="16">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAA==
+  </data>
+ </layer>
+ <objectgroup color="#0000ff" name="conn 1">
+  <properties>
+   <property name="connectGroups" value="1"/>
+   <property name="controllable" value="1"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="0"/>
+   <property name="pusher" value="1"/>
+  </properties>
+  <object x="32" y="288" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="conn 2">
+  <properties>
+   <property name="connectGroups" value="2"/>
+   <property name="controllable" value="0"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="1"/>
+   <property name="pusher" value="0"/>
+  </properties>
+  <object x="32" y="320" width="32" height="96"/>
+ </objectgroup>
+ <objectgroup color="#000000" name="specc blockBreak">
+  <properties>
+   <property name="connectGroups" value="1"/>
+   <property name="controllable" value="1"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="0"/>
+   <property name="pusher" value="0"/>
+  </properties>
+  <object x="224" y="288" width="32" height="32">
+   <properties>
+    <property name="blockBreak" value="1"/>
+    <property name="usageCount" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" name="specc blockLink">
+  <properties>
+   <property name="connectGroups" value="1"/>
+   <property name="controllable" value="1"/>
+   <property name="farAway" value="0"/>
+   <property name="pushable" value="0"/>
+   <property name="pusher" value="0"/>
+  </properties>
+  <object x="32" y="448" width="32" height="32">
+   <properties>
+    <property name="blockLink" value="4"/>
+   </properties>
+  </object>
+  <object x="224" y="256" width="32" height="32">
+   <properties>
+    <property name="blockLink" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

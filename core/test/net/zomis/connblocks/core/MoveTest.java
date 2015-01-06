@@ -37,9 +37,6 @@ public class MoveTest {
     public ConnectingBlocks connectionByColor(int bitPattern) {
         ConnectingBlocks result = null;
         for (ConnectingBlocks conn : map.getConnections()) {
-            if (!conn.isControllable()) {
-                continue;
-            }
             if ((conn.getConnectGroups() & bitPattern) != bitPattern) {
                 continue;
             }
