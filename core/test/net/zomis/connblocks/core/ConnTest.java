@@ -1,17 +1,10 @@
 package net.zomis.connblocks.core;
 
-import com.badlogic.gdx.files.FileHandle;
 import net.zomis.connblocks.BlockMap;
-import net.zomis.connblocks.BlockTile;
 import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.Direction4;
-import net.zomis.connblocks.gdx.mapload.MapLoader;
 import org.junit.*;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import static org.junit.Assert.*;
 import static net.zomis.connblocks.Direction4.*;
@@ -42,12 +35,12 @@ public class ConnTest extends MoveTest {
         BlockMap map = loadMap("connect.tmx");
         ConnectingBlocks conn = connectionAt(4, 1);
         assertEquals(2, map.getConnections().size());
-        move(conn, Direction4.LEFT);
-        move(conn, Direction4.LEFT);
+        conn.move(LEFT);
+        conn.move(LEFT);
         assertEquals(1, map.getConnections().size());
-        move(conn, Direction4.LEFT);
-        move(conn, Direction4.DOWN);
-        move(conn, Direction4.DOWN);
+        conn.move(LEFT);
+        conn.move(DOWN);
+        conn.move(DOWN);
         assertTrue(map.checkForGoal());
     }
 

@@ -59,9 +59,7 @@ public class ConnectionMover extends GestureDetector.GestureAdapter {
             return;
         }
         BlockMap map = connection.getMap();
-        map.stateBasedEffects();
         connection.move(dir);
-        map.stateBasedEffects();
         if (onGoal != null && map.checkForGoal()) {
             onGoal.run();
             mapFinished = true;

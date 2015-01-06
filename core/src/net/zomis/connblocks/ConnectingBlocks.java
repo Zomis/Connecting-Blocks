@@ -128,7 +128,9 @@ public class ConnectingBlocks implements Comparable<ConnectingBlocks> {
 		}
 		return order;
 	}
-	public boolean move(Direction4 dir) {
+
+    @Deprecated
+	public boolean moveNoPostStateFix(Direction4 dir) {
 		if (!this.isControllable())
 			return false;
 		MoveOrder order = new MoveOrder(this, dir);
@@ -136,6 +138,13 @@ public class ConnectingBlocks implements Comparable<ConnectingBlocks> {
 		this.getMap().getEventExecutor().executeEvent(new ConnectionMovedEvent(order));
 		return moveResult;
 	}
+
+    public boolean move(Direction4 dir) {
+        BlockMap map = getMap();
+        boolean result = moveNoPostStateFix(dir);
+        map.stateBasedEffects();
+        return result;
+    }
 	
 	@JsonIgnore
 	public int getBlocksSize() {

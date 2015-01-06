@@ -73,11 +73,4 @@ public class MoveTest {
         return pos.getBlock() != null ? pos.getBlock().getConnection() : null;
     }
 
-    public boolean move(ConnectingBlocks conn, Direction4 dir) {
-        BlockMap map = conn.getMap();
-        conn.move(dir);
-        map.stateBasedEffects();
-        return map.checkForGoal();
-    }
-
 }
