@@ -2,6 +2,7 @@ package net.zomis.connblocks.core;
 
 import com.badlogic.gdx.files.FileHandle;
 import net.zomis.connblocks.BlockMap;
+import net.zomis.connblocks.BlockTile;
 import net.zomis.connblocks.ConnectingBlocks;
 import net.zomis.connblocks.Direction4;
 import net.zomis.connblocks.gdx.mapload.MapLoader;
@@ -24,6 +25,7 @@ public class ConnTest extends MoveTest {
         // this currently causes Stack Overflow error because connection is just going back-and-forth
         BlockMap map = loadMap("stackoverflow-moveup.tmx");
         assertEquals(1, map.getConnections().size());
+        connectionByColor(1).move(UP);
         boolean moveResult = map.getConnections().iterator().next().move(Direction4.UP);
         assertTrue(moveResult);
     }
