@@ -27,9 +27,9 @@ public class LevelsetPickScreen implements Screen {
         this.game = game;
 
         table.setFillParent(true);
-        addLevelset(new TutorialLevels());
+//        addLevelset(new TutorialLevels());
         addLevelset(new TestPack());
-        addLevelset(new RealPack());
+//        addLevelset(new RealPack());
 
         FileHandle levels = Gdx.files.internal("levels/");
         scanLevels(levels);
