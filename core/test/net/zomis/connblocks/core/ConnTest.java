@@ -38,7 +38,17 @@ public class ConnTest extends MoveTest {
     }
 
     @Test
-    public void load() {
+    public void connect() {
+        BlockMap map = loadMap("connect.tmx");
+        ConnectingBlocks conn = connectionAt(4, 1);
+        assertEquals(2, map.getConnections().size());
+        move(conn, Direction4.LEFT);
+        move(conn, Direction4.LEFT);
+        assertEquals(1, map.getConnections().size());
+        move(conn, Direction4.LEFT);
+        move(conn, Direction4.DOWN);
+        move(conn, Direction4.DOWN);
+        assertTrue(map.checkForGoal());
     }
 
 }
