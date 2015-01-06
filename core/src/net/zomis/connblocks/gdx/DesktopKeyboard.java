@@ -70,6 +70,7 @@ public class DesktopKeyboard extends InputAdapter {
             return false;
         }
         if (connection == null) {
+            // No connection selected, select the first one that appears
             Iterator<ConnectingBlocks> it = game.getMainScreen().getMap().getConnections().iterator();
             game.getMainScreen().selectConnection(it.hasNext() ? it.next() : null);
             return true;
@@ -77,13 +78,20 @@ public class DesktopKeyboard extends InputAdapter {
         Iterator<ConnectingBlocks> it = connection.getMap().getConnections().iterator();
         while (it.hasNext()) {
             if (connection == it.next()) {
-                ConnectingBlocks nextConnection =
-                        it.hasNext() ? it.next() : connection.getMap().getConnections().iterator().next();
+                // We are on the current connection
+                ConnectingBlocks nextConnection;
+                do {
+                    if (!it.hasNext()) {
+                        it = connection.getMap().getConnections().iterator();
+                    }
+                    nextConnection = it.next();
+                }
+                while (!nextConnection.isControllable() && nextConnection != connection);
                 game.getMainScreen().selectConnection(nextConnection);
-                break;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private void direction(Direction4 direction) {
