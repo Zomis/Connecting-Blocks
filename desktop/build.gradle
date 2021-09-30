@@ -25,7 +25,7 @@ task debug(dependsOn: classes, type: JavaExec) {
 
 task dist(type: Jar) {
     dependsOn "test"
-    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.classesDirs.filter{ })
     from files(sourceSets.main.output.resourcesDir)
     from {configurations.compile.collect {zipTree(it)}}
     from files(project.assetsDir);

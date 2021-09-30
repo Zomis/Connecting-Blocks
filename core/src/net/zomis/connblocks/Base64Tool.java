@@ -1,8 +1,8 @@
 package net.zomis.connblocks;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
 /**
  * Created by Zomis on 2014-11-12.
@@ -22,7 +22,7 @@ public class Base64Tool {
 
     private static String decode(String level) {
         try {
-            return new String(DatatypeConverter.parseBase64Binary(level), "UTF-8");
+            return new String(Base64.getDecoder().decode(level), "UTF-8");
         }
         catch (UnsupportedEncodingException e) {
             throw new RuntimeException("UTF-8 not found. That's strange.");

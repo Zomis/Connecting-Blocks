@@ -29,64 +29,23 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url "http://www.zomis.net/maven/" }
+        maven { url "https://www.zomis.net/maven/" }
     }
 }
 
 project(":desktop") {
     apply plugin: "java"
     compileTestJava.dependsOn tasks.getByPath(':core:test')
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    compileJava {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
-}
-
-project(":android") {
-    apply plugin: "android"
-
-    configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-    }
-}
-
-project(":ios") {
-    apply plugin: "java"
-    apply plugin: "robovm"
-
-    configurations { natives }
-
-    dependencies {
-        compile project(":core")
-        compile "commons-codec:commons-codec:1.9"
-        compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-        compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
-    }
-}
-
-project(":html") {
-    apply plugin: "gwt"
-    apply plugin: "war"
-
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
 
@@ -94,19 +53,25 @@ project(":core") {
     apply plugin: "java"
     sourceSets.test.java.srcDirs = ["test/"]
     sourceSets.test.resources.srcDirs = [ "testres/" ]
+    compileJava {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "com.fasterxml.jackson.core:jackson-databind:2.4.2"
-        compile "com.fasterxml.jackson.core:jackson-core:2.4.2"
-        compile "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
-        compile "net.zomis:commons:0.1"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.fasterxml.jackson.core:jackson-databind:2.4.2"
+        implementation "com.fasterxml.jackson.core:jackson-core:2.4.2"
+        implementation "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
+        implementation "net.zomis:commons:0.1"
 
+        /*
         testCompile "junit:junit:4.11"
         testCompile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
         testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+         */
     }
 }
 
